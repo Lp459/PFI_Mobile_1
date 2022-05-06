@@ -53,19 +53,22 @@ export default function App() {
       <Text style={styles.title}>À propos de nous</Text>
       <br/>
       <Text>Louis-philippe Rousseau</Text>
-      
+      <a href='mailto:louis-philippeR@gmail.com'>louis-philippeR@gmail.com</a>
+      <Text>Alexandre Carle</Text>
+      <a href='mailto:alexCarle@gmail.com'>alexCarle@gmail.com</a>
       
     </View>)}
+
     const FindUsScreen = ({navigation}) => {return (<View>
-      <Text style={styles.title}>Magasin!</Text>
+      <Text style={styles.title}>Find us</Text>
       
     </View>)}
     const AdminScreen = ({navigation}) => {return (<View>
-      <Text style={styles.title}>Magasin!</Text>
+      <Text style={styles.title}>Administrateur</Text>
       
     </View>)}
     const ProduitsScreen = ({navigation}) => {return (<View>
-      <Text style={styles.title}>Nos croisières en promotion!</Text>
+      <Text style={styles.title}>Nos produits</Text>
       <FlatList
         data={produits}
         renderItem={({item}) => /*Produits */ null}
