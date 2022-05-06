@@ -1,21 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , FlatList , Pressable } from 'react-native';
 import {Database} from "./database";
-import { FlatList, StyleSheet, Text, View, Pressable} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Fontisto } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
-
+import {AdminScreen ,} from './Pages';
+import { MaterialIcons } from '@expo/vector-icons';
+import Fonctions from './function'
 const db = new Database("Shop");
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-db.execute("drop table if exists produits;");
-db.execute("create table produits (id, nom, prix, image);");
-db.execute("drop table if exists connexion;");
-db.execute("create table connexion (usager, motdepasse, admin);");
-db.execute("insert into produits values (1, 'Pain 800g' , 10 , image.jpg);");
-db.execute("insert into Connexion values ('LPR' , '123456' , 1);");
+
 
 export default function App() {
   const [produits, setProduits] = useState([]);
@@ -32,41 +30,54 @@ export default function App() {
         setConnexion(resultSet.rows)
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
 
-
+  const LoginScreen = ({})=>{return (<View>
+    {connexions.map((n)=><PressableLogin user={n.user} motdepasse={user.motdepasse} flag={n.flag}></PressableLogin>)}
+    </View>)}
+  
    const AcceuilScreen = ({navigation}) => {return (
    <View>
+
      <Text style={styles.title}>Magasin!</Text>
+        <Stack.Navigator>
+          <Stack.Screen name="All tracks" component={StackScreen} 
+          options={{headerTitle: (navigation) => <View/>}}/>
+          <Stack.Screen name="Login" component={LoginScreen}/>
+        </Stack.Navigator>
+   </View>)}
+
+   const StackScreen = ({navigation})=>{return<View>
+     <Pressable  style={styles.pressable} 
+         onPress={() => navigation.navigate("Login", {/*  */})}>
+         <Text style={styles.pressable_text}>Login</Text>
+       </Pressable>
       {userConnected ? 
        <Pressable  style={styles.pressable} 
          onPress={() => navigation.navigate("ProduitsScreen", {/*  */})}>
-         <Text style={styles.pressable_text}>Caroline</Text>
+         <Text style={styles.pressable_text}>Magasin</Text>
+         <MaterialIcons name="computer" size={24} color="black" />
        </Pressable> : null}
       {adminConnecter ?
        <Pressable  style={styles.pressable} 
-        onPress={() => navigation.navigate("AdminScreen", {/*  */})}>
+        onPress={() => navigation.navigate("AdminScreen", {db})}>
         <Text style={styles.pressable_text}>Admin</Text>
        </Pressable> : null}
-   </View>)}
+   </View>}
 
     const AboutScreen = ({navigation}) => {return (
     <View>
       <Text style={styles.title}>À propos de nous</Text>
-      <br/>
       <Text>Louis-philippe Rousseau</Text>
-      <a href='mailto:louis-philippeR@gmail.com'>louis-philippeR@gmail.com</a>
+      <Text>louis-philippe_rousseau@gmail.com</Text>
       <Text>Alexandre Carle</Text>
-      <a href='mailto:alexCarle@gmail.com'>alexCarle@gmail.com</a>
+      <Text>alexCarle@gmail.com</Text>
       
     </View>)}
 
     const FindUsScreen = ({navigation}) => {return (<View>
       <Text style={styles.title}>Find us</Text>
-      
+    
     </View>)}
-    const AdminScreen = ({navigation}) => {return (<View>
-      <Text style={styles.title}>Administrateur</Text>
-      
-    </View>)}
+   
     const ProduitsScreen = ({navigation}) => {return (<View>
       <Text style={styles.title}>Nos produits</Text>
       <FlatList
@@ -82,7 +93,7 @@ export default function App() {
      return (<Pressable style={isPressed ? styles.appuye : styles.pressable}
        onPressIn={() => setIsPressed(true)} onPressOut={() => setIsPressed(false)}>
          <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>{user}{flag}</Text>
-         {setUser(user)} {flag == 1?setAdminConnecter(true):setAdminConnecter(false)}
+         {setUser(user)}{setUserConnected(true)} {flag == 1?setAdminConnecter(true):setAdminConnecter(false)}
      </Pressable>
      )};
   return (
@@ -112,4 +123,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    fontSize: 35,
+    color: 'white',
+    backgroundColor: '#38f'
+  },
+  ligneCroisiere: {
+    fontSize: 30,
+    color: 'white',
+    padding: 7,
+    margin: 7,
+    backgroundColor: 'blue'
+  },
+  croisiere: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'blue',
+    padding: 4,
+    margin: 4
+  },
+  pressable: {
+    color: 'blue',
+    backgroundColor: '#2be',
+    padding: 6,
+    margin: 4,
+    borderRadius: 10
+  },
+  appuye: {
+    backgroundColor: '#26e',
+    padding: 6,
+    margin: 4,
+    borderRadius: 10
+  },
+  texteAppuye: {
+    color: 'lightblue',
+    fontWeight: 'bold'
+  },
+  texteNormal: {
+    color: 'blue',
+    fontWeight: 'bold'
+  }
 });
