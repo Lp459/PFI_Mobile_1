@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {Database} from "./database";
 import { FlatList, StyleSheet, Text, View, Pressable} from 'react-native';
@@ -34,19 +33,27 @@ export default function App() {
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
 
 
-   const AcceuilScreen = ({navigation}) => {return (<View>
+   const AcceuilScreen = ({navigation}) => {return (
+   <View>
      <Text style={styles.title}>Magasin!</Text>
-     {userConnected ?<Pressable  style={styles.pressable} 
-    onPress={() => navigation.navigate("ProduitsScreen", {/*  */})}>
-      <Text style={styles.pressable_text}>Caroline</Text>
-    </Pressable>:null}
-    {adminConnecter ?<Pressable  style={styles.pressable} 
-    onPress={() => navigation.navigate("AdminScreen", {/*  */})}>
-      <Text style={styles.pressable_text}>Caroline</Text>
-    </Pressable>:null}
+      {userConnected ? 
+       <Pressable  style={styles.pressable} 
+         onPress={() => navigation.navigate("ProduitsScreen", {/*  */})}>
+         <Text style={styles.pressable_text}>Caroline</Text>
+       </Pressable> : null}
+      {adminConnecter ?
+       <Pressable  style={styles.pressable} 
+        onPress={() => navigation.navigate("AdminScreen", {/*  */})}>
+        <Text style={styles.pressable_text}>Admin</Text>
+       </Pressable> : null}
    </View>)}
-    const AboutScreen = ({navigation}) => {return (<View>
-      <Text style={styles.title}>Magasin!</Text>
+
+    const AboutScreen = ({navigation}) => {return (
+    <View>
+      <Text style={styles.title}>À propos de nous</Text>
+      <br/>
+      <Text>Louis-philippe Rousseau</Text>
+      
       
     </View>)}
     const FindUsScreen = ({navigation}) => {return (<View>
