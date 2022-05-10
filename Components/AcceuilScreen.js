@@ -1,8 +1,15 @@
 import React from 'react';
 import { View, StyleSheet , Text, Pressable, Image } from 'react-native';
+import NavScreen from './NavScreen';
 
 function AccueilScreen({navigation, route}) {
     const {userId, nom, admin} = route.params;
+    const [userConnected , setUserConnected] = useState(false);
+    const [nomUser , setUser] = useState();
+    const [adminConnecter , setAdminConnecter] = useState(false);
+    setAdminConnecter = admin
+    setUserConnected = userId != null ? True : false
+    setUser = nom
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
@@ -10,10 +17,7 @@ function AccueilScreen({navigation, route}) {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-            <Pressable  style={styles.pressable} 
-            onPress={() => navigation.navigate("Login", {/* */})}>
-            <Text style={styles.pressable_text}>Login</Text>
-       </Pressable>
+       {NavScreen}
         </View>
     );
 }

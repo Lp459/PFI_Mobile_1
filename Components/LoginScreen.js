@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet  } from 'react-native';
-import Stack from 'stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AcceuilScreen from './AcceuilScreen';
 import PressableLogin from './PressableLogin';
-import App from '../App';
 import NavScreen from './NavScreen';
+
 const Stack = createNativeStackNavigator();
+
 function LoginScreen(props) {
     const [connexions , setConnexion] = useState([]);
     db.execute("select * from connexions;")
@@ -14,24 +15,71 @@ function LoginScreen(props) {
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
     return (
         <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Connexion" component={AllConnexions} 
-          options={{headerTitle: (props) => <View/>}}/>
-          <Stack.Screen name="Acceuil" component={AcceuilScreen}
-         />
+            <Stack.Navigator>
+            <Stack.Screen name="Connexion" component={AllConnexions} 
+            options={{headerTitle: (props) => <View/>}}/>
+            <Stack.Screen name="Acceuil" component={AcceuilScreen}
+            />
         </Stack.Navigator>
       </NavigationContainer>
         
     );
 }
-const AllConnexions = ({navigation}) => {
-    return  <View  style={styles.container}>
-    {connexions.map((n)=><PressableLogin onPress={() => { navigation.navigate("Acceuil", {userID: n.userID, name: n.nom, admin: n.admin}) , setView(NavScreen)}} user={n.user} motdepasse={n.motdepasse} flag={n.admin}></PressableLogin>)}
-    </View>
-  }
-const styles = StyleSheet.create({
+
+  const styles = StyleSheet.create({
     container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontSize: 35,
+      color: 'white',
+      backgroundColor: '#38f'
+    },
+    ligneCroisiere: {
+      fontSize: 30,
+      color: 'white',
+      padding: 7,
+      margin: 7,
+      backgroundColor: 'blue'
+    },
+    croisiere: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      color: 'blue',
+      padding: 4,
+      margin: 4
+    },
+    pressable: {
+      color: 'blue',
+      backgroundColor: '#2be',
+      padding: 6,
+      margin: 4,
+      borderRadius: 10
+    },
+    pressable_text:{
+      fontSize:15,
+  
+      alignItems: 'center',
+    },
+  
+    appuye: {
+      backgroundColor: '#26e',
+      padding: 6,
+      margin: 4,
+      borderRadius: 10
+    },
+    texteAppuye: {
+      color: 'lightblue',
+      fontWeight: 'bold'
+    },
+    texteNormal: {
+      color: 'blue',
+      fontWeight: 'bold'
     }
-})
+  });
+
 
 export default LoginScreen;

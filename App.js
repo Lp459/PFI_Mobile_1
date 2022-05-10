@@ -14,35 +14,63 @@ import LoginScreen  from './Components/LoginScreen';
 import PressableLogin from './Components/PressableLogin';
 import ProduitsScreen from './Components/ProduitsScreen';
 import { MaterialIcons } from '@expo/vector-icons';
-import Fonctions from './function'
 import { render } from 'react-dom';
 const db = new Database("Shop");
-const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-init_tab();
+function init_tab(db){
+  db.execute("drop table if exists produits;");
+  db.execute("create table produits (id, nom, prix, image);");
+  db.execute("drop table if exists connexion;");
+  db.execute("create table connexion (id , usager, motdepasse, admin);");
+
+  db.execute("insert into produits values (1, 'Pain 800g' , 10 , image.jpg);");
+  db.execute("insert into Connexion values (1 , 'LPR' , '123456' , 1);");
+}
+init_tab(db);
+
 
 
 export default function App() {
+  const [connexions , setConnexion] = useState([...connexions]);
   const [produits, setProduits] = useState([]);
-  const [connexions , setConnexion] = useState([]);
   const [userConnected , setUserConnected] = useState(false);
   const [nomUser , setUser] = useState();
+  const [erreur , setErreur] = useState();
   const [adminConnecter , setAdminConnecter] = useState(false);
-  const [view , setView] = useState(LoginScreen)
+  
   db.execute("select * from produits;")
-  .then((resultSet) => {
-      setProduits(resultSet.rows)
-  }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
-    db.execute("select * from connexions;")
     .then((resultSet) => {
-        setConnexion(resultSet.rows)
+        setProduits(resultSet.rows)
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
-  return (
-    {view}
-  );
+  db.execute("select * from connexions;")
+  .then((resultSet) => {
+      setConnexion(resultSet.rows)
+  }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
+    return (
+        <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Connexion" component={AllConnexions} 
+          options={{headerTitle: (props) => <View/>}}/>
+          <Stack.Screen name="Acceuil" component={AcceuilScreen}
+         />
+        </Stack.Navigator>
+      </NavigationContainer>
+        
+    );
 }
 
-
+const AllConnexions = ({navigation}) => {
+  const [connexions , setConnexion] = useState([...connexions]);
+  const [erreur , setErreur] = useState();
+  db.execute("select * from connexions;")
+  .then((resultSet) => {
+      setConnexion(resultSet.rows)
+  }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
+  return  <View  style={styles.container}>
+    <Text>{connexions != null ? 'yo' : null}</Text>
+  {connexions.map((n)=><PressableLogin onPress={() => navigation.navigate("Acceuil", {userID: n.userID, name: n.nom, admin: n.admin})} user={n.user} motdepasse={n.motdepasse} flag={n.admin}>{n.user}{n.admin}</PressableLogin>)}
+  </View>
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

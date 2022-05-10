@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator();
 function NavScreen(props) {
     return (
-        <View style={styles.container}>
-        <NavigationContainer>
+    <View style={styles.container}>
         <Tab.Navigator>
           {userConnected ? null : <Tab.Screen name="Login" component={LoginScreen}
           options={{tabBarIcon: ({size, focused}) =>
@@ -22,7 +23,7 @@ function NavScreen(props) {
             options={{tabBarIcon: ({size, focused}) =>
             <Fontisto name="ship" size={size} color={focused ? "blue" : "lightblue"} />}}/>
         </Tab.Navigator>
-      </NavigationContainer></View>
+    </View>
     );
 }
 const styles = StyleSheet.create({
