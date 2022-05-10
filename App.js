@@ -15,10 +15,11 @@ import PressableLogin from './Components/PressableLogin';
 import ProduitsScreen from './Components/ProduitsScreen';
 import { MaterialIcons } from '@expo/vector-icons';
 import Fonctions from './function'
+import { render } from 'react-dom';
 const db = new Database("Shop");
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
+init_tab();
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
   const [userConnected , setUserConnected] = useState(false);
   const [nomUser , setUser] = useState();
   const [adminConnecter , setAdminConnecter] = useState(false);
+  const [view , setView] = useState(LoginScreen)
   db.execute("select * from produits;")
   .then((resultSet) => {
       setProduits(resultSet.rows)
@@ -36,41 +38,10 @@ export default function App() {
         setConnexion(resultSet.rows)
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
   return (
-    
-    <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Accueil" component={AcceuilScreen} 
-            options={{tabBarIcon: ({size, focused}) =>
-            <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
-         
-          <Tab.Screen name="About" component={AboutScreen}
-            options={{tabBarIcon: ({size, focused}) =>
-            <Ionicons name="search" size={size} color={focused ? "blue" : "lightblue"} />}}/>
-
-          <Tab.Screen name="Find us" component={FindUsScreen}
-            options={{tabBarIcon: ({size, focused}) =>
-            <Fontisto name="ship" size={size} color={focused ? "blue" : "lightblue"} />}}/>
-        </Tab.Navigator>
-      </NavigationContainer>
+    {view}
   );
 }
-/* const StackScreen = ({navigation})=>{return<View>
-  <Pressable  style={styles.pressable} 
-      onPress={() => navigation.navigate("Login", {})}>
-      <Text style={styles.pressable_text}>Login</Text>
-    </Pressable>
-   {userConnected ? 
-    <Pressable  style={styles.pressable} 
-      onPress={() => navigation.navigate("ProduitsScreen", {})}>
-      <Text style={styles.pressable_text}>Magasin</Text>
-      <MaterialIcons name="computer" size={24} color="black" />
-    </Pressable> : null}
-   {adminConnecter ?
-    <Pressable  style={styles.pressable} 
-     onPress={() => navigation.navigate("AdminScreen", {db})}>
-     <Text style={styles.pressable_text}>Admin</Text>
-    </Pressable> : null}
-</View>} */
+
 
 const styles = StyleSheet.create({
   container: {

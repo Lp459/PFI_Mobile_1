@@ -1,0 +1,83 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+
+function NavScreen(props) {
+    return (
+        <View style={styles.container}>
+        <NavigationContainer>
+        <Tab.Navigator>
+          {userConnected ? null : <Tab.Screen name="Login" component={LoginScreen}
+          options={{tabBarIcon: ({size, focused}) =>
+          <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} /> }
+         
+          <Tab.Screen name="Accueil" component={AcceuilScreen} 
+            options={{tabBarIcon: ({size, focused}) =>
+            <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
+          
+          <Tab.Screen name="About" component={AboutScreen}
+            options={{tabBarIcon: ({size, focused}) =>
+            <Ionicons name="search" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+
+          <Tab.Screen name="Find us" component={FindUsScreen}
+            options={{tabBarIcon: ({size, focused}) =>
+            <Fontisto name="ship" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+        </Tab.Navigator>
+      </NavigationContainer></View>
+    );
+}
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontSize: 35,
+      color: 'white',
+      backgroundColor: '#38f'
+    },
+    ligneCroisiere: {
+      fontSize: 30,
+      color: 'white',
+      padding: 7,
+      margin: 7,
+      backgroundColor: 'blue'
+    },
+    croisiere: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      color: 'blue',
+      padding: 4,
+      margin: 4
+    },
+    pressable: {
+      color: 'blue',
+      backgroundColor: '#2be',
+      padding: 6,
+      margin: 4,
+      borderRadius: 10
+    },
+    pressable_text:{
+      fontSize:15,
+  
+      alignItems: 'center',
+    },
+  
+    appuye: {
+      backgroundColor: '#26e',
+      padding: 6,
+      margin: 4,
+      borderRadius: 10
+    },
+    texteAppuye: {
+      color: 'lightblue',
+      fontWeight: 'bold'
+    },
+    texteNormal: {
+      color: 'blue',
+      fontWeight: 'bold'
+    }
+  });
+
+export default NavScreen;
