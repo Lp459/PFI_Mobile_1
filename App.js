@@ -17,16 +17,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { render } from 'react-dom';
 const db = new Database("Shop");
 const Stack = createNativeStackNavigator();
-function init_tab(db){
-  db.execute("drop table if exists produits;");
-  db.execute("create table produits (id, nom, prix, image);");
-  db.execute("drop table if exists connexions;");
-  db.execute("create table connexions (id , usager, motdepasse, admin);");
+function init_tab(){
+  db.execute("DROP TABLE IF EXISTS produits;");
+  db.execute("CREATE TABLE produits (id, nom, prix, image);");
+  db.execute("DROP TABLE IF EXISTS connexions;");
+  db.execute("CREATE TABLE connexions (id , usager, motdepasse, admin);");
 
-  db.execute("insert into produits values (1, 'Pain 800g' , 10 , image.jpg);");
-  db.execute("insert into connexions values (1 , 'LPR' , '123456' , 1);");
+  db.execute("INSERT INTO produits VALUES (?, ?, ?, ?);", [1, 'Pain 800g', 10, 'image.jpg']);
+  db.execute("INSERT INTO connexions VALUES (?, ?, ?, ?);", [1, 'LPR', '123456', 1]);
 }
-init_tab(db);
+init_tab();
 
 
 
