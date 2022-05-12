@@ -26,24 +26,19 @@ function init_tab(db){
 
   db.execute("insert into produits values (1, 'Pain 800g' , 10 , 'somthing.jpg');");
   db.execute("insert into connexions values (1 , 'LPR' , '123456' , 1 , 0);");
-  db.execute("insert into connexions values (2 , 'JACK' , '123456' , 1 , 0);");
-  db.execute("insert into connexions values (3 , 'OK' , '123456' , 1 , 0);");
+  db.execute("insert into connexions values (2 , 'JACK' , '123456' , 0 , 0);");
+  db.execute("insert into connexions values (3 , 'OK' , '123456' , 0 , 0);");
+}
+function updateLoggedIn(db , user){
+  db.execute(`UPDATE connexions set loggedin = 0 where usager !='${user}'`);
 }
 init_tab(db);
 
 
 
 export default function App() {
-  const [produits, setProduits] = useState([]);
-  const [userConnected , setUserConnected] = useState(false);
-  const [nomUser , setUser] = useState();
   const [erreur , setErreur] = useState();
-  const [adminConnecter , setAdminConnecter] = useState(false);
-  
-  db.execute("select * from produits;")
-    .then((resultSet) => {
-        setProduits(resultSet.rows)
-    }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
+    updateLoggedIn(db);
     return (
         <NavigationContainer>
         <Stack.Navigator>
@@ -59,14 +54,15 @@ export default function App() {
 const AllConnexions = ({navigation}) => {
   const [connexions , setConnexion] = useState([]);
   const [erreur , setErreur] = useState();
-  const [connected , setConnected] = useState();
   db.execute("SELECT usager , admin FROM connexions;")
   .then((resultSet) => {
       setConnexion(resultSet.rows)
 
   }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
+  
+
   return  <View  style={styles.container}>
-  {connexions.map((n)=><PressableLogin onPress={() =>navigation.navigate("NavScreen")}  user={n.usager} flag={n.admin}></PressableLogin>)}
+  {connexions.map((n)=><PressableLogin onPress={() =>{db.execute(`UPDATE connexions set loggedin = 1 where usager='${n.user}'`);navigation.navigate("NavScreen");}}  user={n.usager} flag={n.admin}></PressableLogin>)}
   </View>
 }
 const styles = StyleSheet.create({

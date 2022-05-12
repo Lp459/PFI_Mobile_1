@@ -11,9 +11,14 @@
     db.execute("insert into produits values (1, 'Pain 800g' , 10 , image.jpg);");
     db.execute("insert into Connexion values (1 , 'LPR' , '123456' , 1);");
 }
+function dd(){
+
+}
 const styles = StyleSheet.create({
     container: {
     }
 })
-  
+
   export default init_tab();
+
+  

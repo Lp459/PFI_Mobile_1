@@ -4,30 +4,72 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AcceuilScreen from './AcceuilScreen';
 import AboutScreen from './AboutScreen';
 import FindUsScreen from './FindUsScreen';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { Fontisto } from '@expo/vector-icons';
-
+import { useState } from 'react';
+import ProduitsScreen from './ProduitsScreen';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import AdminScreen from './AdminScreen';
+import PanierScreen from './PanierScreen';
+import { Database } from '../database';
 
 const Tab = createBottomTabNavigator();
+const db = new Database("Shop")
+
+function afficherBonneTab(users)
+{
+    users.forEach(n => {
+
+        if(n.loggedin == 1){
+            if(n.admin == 1){
+                console.log('an admin');
+                return true;
+            }
+            else{
+                console.log('not admin');
+
+                return false;
+            }
+        }
+    });
+    
+}
+
 function NavScreen(props) {
+    const [user , setUser] = useState([]);
+    const [erreur , setErreur] = useState([]);
+    db.execute("SELECT id , usager , admin , loggedin FROM connexions;")
+    .then((resultSet) => {
+        setUser(resultSet.rows);
+    }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
     return (
     
-        <Tab.Navigator>      
+        <Tab.Navigator>  
+            
           <Tab.Screen name="Accueil" component={AcceuilScreen} 
             options={{tabBarIcon: ({size, focused}) =>
-            <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
+            <MaterialCommunityIcons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
           
           <Tab.Screen name="About" component={AboutScreen}
             options={{tabBarIcon: ({size, focused}) =>
-            <Ionicons name="search" size={size} color={focused ? "red" : "lightblue"} />}}/>
+            <MaterialCommunityIcons name="information-outline" size={size} color={focused ? "blue" : "lightblue"} />}}/>
 
           <Tab.Screen name="Find us" component={FindUsScreen}
             options={{tabBarIcon: ({size, focused}) =>
-            <Fontisto name="ship" size={size} color={focused ? "red" : "lightblue"} />}}/>
-        </Tab.Navigator>
+            <MaterialCommunityIcons name="google-maps" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+        
+        {afficherBonneTab(user) ? <Tab.Screen name="Admin" component={AdminScreen}
+                options={{tabBarIcon: ({size, focused}) =>
+                <MaterialCommunityIcons name="admin-panel-settings" size={size} color={focused ? "blue" : "lightblue"} />}}/> :<Tab.Screen name="Magasin" component={ProduitsScreen}
+                options={{tabBarIcon: ({size, focused}) =>
+            <MaterialCommunityIcons name="store" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
 
+        {afficherBonneTab(user) ?  null :<Tab.Screen name="Panier" component={PanierScreen}
+        options={{tabBarIcon: ({size, focused}) =>
+        <MaterialCommunityIcons name="cart" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
+        </Tab.Navigator>
+        
     );
 }
+//{user.admin ? {TabAdmin}: {TabUser}}
 const styles = StyleSheet.create({
     container: {
       flex: 1,

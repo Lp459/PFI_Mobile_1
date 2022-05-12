@@ -5,10 +5,11 @@ import NavScreen from './NavScreen';
 import { useState } from 'react';
 import * as SQLite from 'expo-sqlite';
 
-const db = new Database("Shop")
+const db = new Database("Shop");
+
 function AccueilScreen() {
     const [user , setUser] = useState([]);
-
+    
     db.execute("SELECT id , usager , admin FROM connexions where loggedin = 1;")
     .then((resultSet) => {
         setUser(resultSet.rows);
