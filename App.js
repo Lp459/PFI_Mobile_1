@@ -15,23 +15,25 @@ import PressableLogin from './Components/PressableLogin';
 import ProduitsScreen from './Components/ProduitsScreen';
 import { MaterialIcons } from '@expo/vector-icons';
 import { render } from 'react-dom';
+import NavScreen from './Components/NavScreen';
 const db = new Database("Shop");
 const Stack = createNativeStackNavigator();
 function init_tab(db){
   db.execute("drop table if exists produits;");
   db.execute("create table produits (id, nom, prix, image);");
   db.execute("drop table if exists connexions;");
-  db.execute("create table connexions (id , usager, motdepasse, admin);");
+  db.execute("create table connexions (id , usager, motdepasse, admin , loggedin);");
 
-  db.execute("insert into produits values (1, 'Pain 800g' , 10 , image.jpg);");
-  db.execute("insert into connexions values (1 , 'LPR' , '123456' , 1);");
+  db.execute("insert into produits values (1, 'Pain 800g' , 10 , 'somthing.jpg');");
+  db.execute("insert into connexions values (1 , 'LPR' , '123456' , 1 , 0);");
+  db.execute("insert into connexions values (2 , 'JACK' , '123456' , 1 , 0);");
+  db.execute("insert into connexions values (3 , 'OK' , '123456' , 1 , 0);");
 }
 init_tab(db);
 
 
 
 export default function App() {
-  const [connexions , setConnexion] = useState([]);
   const [produits, setProduits] = useState([]);
   const [userConnected , setUserConnected] = useState(false);
   const [nomUser , setUser] = useState();
@@ -42,17 +44,12 @@ export default function App() {
     .then((resultSet) => {
         setProduits(resultSet.rows)
     }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
-  db.execute("select * from connexions;")
-  .then((resultSet) => {
-      setConnexion(resultSet.rows)
-  }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
     return (
         <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Connexion" component={AllConnexions} 
+          <Stack.Screen name="AllConnexions" component={AllConnexions} 
           options={{headerTitle: (props) => <View/>}}/>
-          <Stack.Screen name="Acceuil" component={AcceuilScreen}
-         />
+          <Stack.Screen name="NavScreen" component={NavScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
         
@@ -62,13 +59,14 @@ export default function App() {
 const AllConnexions = ({navigation}) => {
   const [connexions , setConnexion] = useState([]);
   const [erreur , setErreur] = useState();
-  db.execute("select usager , admin from connexions;")
+  const [connected , setConnected] = useState();
+  db.execute("SELECT usager , admin FROM connexions;")
   .then((resultSet) => {
       setConnexion(resultSet.rows)
+
   }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
   return  <View  style={styles.container}>
-    <Text>{connexions != null ? 'yo' : null}</Text>
-  {connexions.map((n)=><PressableLogin onPress={() => navigation.navigate("Acceuil", { user: n.usager, flag: n.admin})} user={n.usager} flag={n.admin}></PressableLogin>)}
+  {connexions.map((n)=><PressableLogin onPress={() =>navigation.navigate("NavScreen")}  user={n.usager} flag={n.admin}></PressableLogin>)}
   </View>
 }
 const styles = StyleSheet.create({

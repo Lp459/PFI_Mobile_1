@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, StyleSheet , Text, Pressable, Image } from 'react-native';
+import { Database } from '../database';
 import NavScreen from './NavScreen';
+import { useState } from 'react';
+import * as SQLite from 'expo-sqlite';
 
-function AccueilScreen({navigation, route}) {
-    const {userId, nom, admin} = route.params;
-    const [userConnected , setUserConnected] = useState(false);
-    const [nomUser , setUser] = useState();
-    const [adminConnecter , setAdminConnecter] = useState(false);
-    setAdminConnecter = admin
-    setUserConnected = userId != null ? True : false
-    setUser = nom
+const db = new Database("Shop")
+function AccueilScreen() {
+    const [user , setUser] = useState([]);
+
+    db.execute("SELECT id , usager , admin FROM connexions where loggedin = 1;")
+    .then((resultSet) => {
+        setUser(resultSet.rows);
+    }).catch((m)=>{  setErreur("Erreur exec Select " + m);})
+    //admin
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
@@ -17,7 +21,6 @@ function AccueilScreen({navigation, route}) {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-       {NavScreen}
         </View>
     );
 }
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
     title: {
         borderRadius: 10,
         color: 'green',
-        fontFamily: 'Serif'
+        
     },
     pressable_text: {
         fontSize:15,

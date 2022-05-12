@@ -1,29 +1,31 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AcceuilScreen from './AcceuilScreen';
+import AboutScreen from './AboutScreen';
+import FindUsScreen from './FindUsScreen';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Fontisto } from '@expo/vector-icons';
+
 
 const Tab = createBottomTabNavigator();
 function NavScreen(props) {
     return (
-    <View style={styles.container}>
-        <Tab.Navigator>
-          {userConnected ? null : <Tab.Screen name="Login" component={LoginScreen}
-          options={{tabBarIcon: ({size, focused}) =>
-          <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} /> }
-         
+    
+        <Tab.Navigator>      
           <Tab.Screen name="Accueil" component={AcceuilScreen} 
             options={{tabBarIcon: ({size, focused}) =>
             <Ionicons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
           
           <Tab.Screen name="About" component={AboutScreen}
             options={{tabBarIcon: ({size, focused}) =>
-            <Ionicons name="search" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+            <Ionicons name="search" size={size} color={focused ? "red" : "lightblue"} />}}/>
 
           <Tab.Screen name="Find us" component={FindUsScreen}
             options={{tabBarIcon: ({size, focused}) =>
-            <Fontisto name="ship" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+            <Fontisto name="ship" size={size} color={focused ? "red" : "lightblue"} />}}/>
         </Tab.Navigator>
-    </View>
+
     );
 }
 const styles = StyleSheet.create({

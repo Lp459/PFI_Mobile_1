@@ -1,16 +1,20 @@
 import React from 'react';
 import { View, StyleSheet , Pressable ,Text} from 'react-native';
 import { useState } from 'react';
-function PressableLogin(props) {
+import { Database } from '../database';
+import * as SQLite from 'expo-sqlite';
+const db = new Database("Shop")
+
+
+function PressableLogin({onPress , user , flag}) {
     const [isPressed, setIsPressed] = useState(false);
+    db.execute(`UPDATE connexions set loggedin = 1 where usager='${user}'`)
      return (<Pressable style={isPressed ? styles.appuye : styles.pressable}
-       onPressIn={() => setIsPressed(true)} onPressOut={() => setIsPressed(false)}>
-         <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>{props.user}{props.flag}</Text>
-         
+       onPressIn={() => setIsPressed(true)} onPressOut={() => setIsPressed(false)} onPress={onPress} >
+         <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>{user}{flag}</Text>
      </Pressable>
      )
 }
-/* {setUser(props.user)}{setUserConnected(true)} {flag == 1?setAdminConnecter(true):setAdminConnecter(false)}*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
