@@ -32,7 +32,7 @@ function init_tab(db){
 function updateLoggedIn(db , user){
   db.execute(`UPDATE connexions set loggedin = 0 where usager !='${user}'`);
 }
-init_tab(db);
+init_tab();
 
 
 
