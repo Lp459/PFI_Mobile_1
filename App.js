@@ -11,6 +11,7 @@ import AccueilScreen from './Components/AccueilScreen';
 import AboutScreen  from './Components/AboutScreen';
 import FindUsScreen from './Components/FindUsScreen';
 import LoginScreen  from './Components/LoginScreen';
+import NavScreenAdmin from './Components/NavScreenAdmin';
 import PressableLogin from './Components/PressableLogin';
 import ProduitsScreen from './Components/ProduitsScreen';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -19,7 +20,7 @@ import NavScreen from './Components/NavScreen';
 
 const db = new Database("Shop");
 const Stack = createNativeStackNavigator();
-function init_tab(db){
+function init_tab(){
   db.execute("drop table if exists produits;");
   db.execute("create table produits (id, nom, prix, image);");
   db.execute("drop table if exists connexions;");
@@ -30,8 +31,9 @@ function init_tab(db){
   db.execute("insert into connexions values (2 , 'JACK' , '123456' , 0 , 0);");
   db.execute("insert into connexions values (3 , 'OK' , '123456' , 0 , 0);");
 }
-function updateLoggedIn(db , user){
-  db.execute(`UPDATE connexions set loggedin = 0 where usager !='${user}'`);
+function updateLoggedIn(db){
+  console.log('update login');
+  db.execute(`UPDATE connexions set loggedin = 0`);
 }
 init_tab();
 
@@ -41,11 +43,14 @@ export default function App() {
   const [erreur , setErreur] = useState();
     updateLoggedIn(db);
     return (
+      
         <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="AllConnexions" component={AllConnexions} 
           options={{headerTitle: (props) => <View/>}}/>
           <Stack.Screen name="NavScreen" component={NavScreen}/>
+          <Stack.Screen name="NavScreenAdmin" component={NavScreenAdmin}/>
+          
         </Stack.Navigator>
       </NavigationContainer>
         
@@ -55,7 +60,7 @@ export default function App() {
 const AllConnexions = ({navigation}) => {
   const [connexions , setConnexion] = useState([]);
   const [erreur , setErreur] = useState();
-  db.execute("SELECT usager , admin FROM connexions;")
+  db.execute("SELECT usager , admin , loggedin FROM connexions;")
   .then((resultSet) => {
       setConnexion(resultSet.rows)
 
@@ -65,9 +70,10 @@ const AllConnexions = ({navigation}) => {
   return  <View  style={styles.container}>
   {
    connexions.map((n)=><PressableLogin onPress={() => {
-     db.execute(`UPDATE connexions set loggedin = 1 where usager='${n.user}'`);
-     navigation.navigate("NavScreen");
-    }}  user={n.usager} flag={n.admin}>
+      updateLoggedIn(db)
+     db.execute(`UPDATE connexions set loggedin = 1 where usager='${n.usager}'`);
+     n.admin ? navigation.navigate("NavScreenAdmin"):navigation.navigate("NavScreen");
+    }}  user={n.usager} flag={n.admin} loggedin={n.loggedin}>
     </PressableLogin>)
   }
   </View>

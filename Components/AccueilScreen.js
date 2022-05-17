@@ -22,7 +22,7 @@ function AccueilScreen() {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-            <Text>Voici une application mobile qui est semblable à <a href="https://NewEgg.com">NewEgg.com</a>
+            <Text>Voici une application mobile qui est semblable à 
              dont vous pouvez acheter des composants d'appareils électronique.
             </Text>
         </View>

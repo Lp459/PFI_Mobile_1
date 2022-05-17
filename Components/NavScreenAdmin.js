@@ -14,6 +14,14 @@ import { Database } from '../database';
 const Tab = createBottomTabNavigator();
 const db = new Database("Shop")
 
+function afficherBonneTab(users)
+{
+
+    
+    
+    
+}
+
 function NavScreen(props) {
     const [user , setUser] = useState([]);
     const [erreur , setErreur] = useState([]);
@@ -24,7 +32,6 @@ function NavScreen(props) {
     return (
     
         <Tab.Navigator>  
-            {console.log()}
           <Tab.Screen name="Accueil" component={AccueilScreen} 
             options={{tabBarIcon: ({size, focused}) =>
             <MaterialCommunityIcons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
@@ -37,13 +44,10 @@ function NavScreen(props) {
             options={{tabBarIcon: ({size, focused}) =>
             <MaterialCommunityIcons name="google-maps" size={size} color={focused ? "blue" : "lightblue"} />}}/>
         
-        <Tab.Screen name="Magasin" component={ProduitsScreen}
+        <Tab.Screen name="Admin" component={AdminScreen}
                 options={{tabBarIcon: ({size, focused}) =>
-            <MaterialCommunityIcons name="store" size={size} color={focused ? "blue" : "lightblue"} />}}/>
+                <MaterialCommunityIcons name="admin-panel" size={size} color={focused ? "blue" : "lightblue"} />}}/> 
 
-        <Tab.Screen name="Panier" component={PanierScreen}
-        options={{tabBarIcon: ({size, focused}) =>
-        <MaterialCommunityIcons name="cart" size={size} color={focused ? "blue" : "lightblue"} />}}/> 
         </Tab.Navigator>
         
     );

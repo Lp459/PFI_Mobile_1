@@ -6,11 +6,11 @@ import * as SQLite from 'expo-sqlite';
 const db = new Database("Shop")
 
 
-function PressableLogin({onPress , user , flag}) {
+function PressableLogin({onPress , user , flag , loggedin}) {
     const [isPressed, setIsPressed] = useState(false);
      return (<Pressable style={isPressed ? styles.appuye : styles.pressable}
        onPressIn={() => setIsPressed(true)} onPressOut={() => setIsPressed(false)} onPress={onPress} >
-         <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>{user}{flag}</Text>
+         <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>{user}{flag}{loggedin}</Text>
      </Pressable>
      )
 }
