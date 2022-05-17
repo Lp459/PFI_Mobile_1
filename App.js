@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import AdminScreen from './Components/AdminScreen';
-import AcceuilScreen from './Components/AcceuilScreen';
+import AccueilScreen from './Components/AccueilScreen';
 import AboutScreen  from './Components/AboutScreen';
 import FindUsScreen from './Components/FindUsScreen';
 import LoginScreen  from './Components/LoginScreen';
@@ -16,6 +16,7 @@ import ProduitsScreen from './Components/ProduitsScreen';
 import { MaterialIcons } from '@expo/vector-icons';
 import { render } from 'react-dom';
 import NavScreen from './Components/NavScreen';
+
 const db = new Database("Shop");
 const Stack = createNativeStackNavigator();
 function init_tab(db){
@@ -62,7 +63,13 @@ const AllConnexions = ({navigation}) => {
   
 
   return  <View  style={styles.container}>
-  {connexions.map((n)=><PressableLogin onPress={() =>{db.execute(`UPDATE connexions set loggedin = 1 where usager='${n.user}'`);navigation.navigate("NavScreen");}}  user={n.usager} flag={n.admin}></PressableLogin>)}
+  {
+   connexions.map((n)=><PressableLogin onPress={() => {
+     db.execute(`UPDATE connexions set loggedin = 1 where usager='${n.user}'`);
+     navigation.navigate("NavScreen");
+    }}  user={n.usager} flag={n.admin}>
+    </PressableLogin>)
+  }
   </View>
 }
 const styles = StyleSheet.create({

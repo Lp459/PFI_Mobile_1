@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AcceuilScreen from './AcceuilScreen';
+import AccueilScreen from './AccueilScreen';
 import AboutScreen from './AboutScreen';
 import FindUsScreen from './FindUsScreen';
 import { useState } from 'react';
@@ -44,7 +44,7 @@ function NavScreen(props) {
     
         <Tab.Navigator>  
             
-          <Tab.Screen name="Accueil" component={AcceuilScreen} 
+          <Tab.Screen name="Accueil" component={AccueilScreen} 
             options={{tabBarIcon: ({size, focused}) =>
             <MaterialCommunityIcons name="home" size={size} color={focused ? "blue" : "lightblue"} />}} />
           

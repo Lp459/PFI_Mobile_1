@@ -3,7 +3,7 @@ import { View, StyleSheet , Text, Pressable, Image } from 'react-native';
 import { Database } from '../database';
 import NavScreen from './NavScreen';
 import { useState } from 'react';
-import * as SQLite from 'expo-sqlite';
+
 
 const db = new Database("Shop");
 
@@ -22,6 +22,9 @@ function AccueilScreen() {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
+            <Text>Voici une application mobile qui est semblable à <a href="https://NewEgg.com">NewEgg.com</a>
+             dont vous pouvez acheter des composants d'appareils électronique.
+            </Text>
         </View>
     );
 }

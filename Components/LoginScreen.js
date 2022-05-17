@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet  } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AcceuilScreen from './AcceuilScreen';
+import AcceuilScreen from './AccueilScreen';
 import PressableLogin from './PressableLogin';
 import NavScreen from './NavScreen';
 
