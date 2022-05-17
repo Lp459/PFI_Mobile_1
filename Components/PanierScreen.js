@@ -1,16 +1,16 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-
+import { View, StyleSheet, FlatList , useState } from "react-native";
+import { Database } from "../database";
 const db = new Database("Shop");
 var items = [];
 var prixTotal = 0;
 
-const [userId , setUserId] = useState(null);
+var userId = 0;
     
-    db.execute("SELECT id FROM connexions where loggedin = 1;")
-    .then((resultSet) => {
-        setUserId(resultSet.rows);
-    }).catch((m)=>{  console.log("Erreur exec Select " + m);})
+db.execute("SELECT id FROM connexions where loggedin = 1;")
+.then((resultSet) => {
+    userId = resultSet.rows;
+}).catch((m)=>{  console.log("Erreur exec Select " + m);})
 
 db.execute(`select * from produits where userId = ${userId};`)
   .then((result) => {

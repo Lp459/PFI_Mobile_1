@@ -46,7 +46,7 @@ function NavScreen(props) {
         
         <Tab.Screen name="Admin" component={AdminScreen}
                 options={{tabBarIcon: ({size, focused}) =>
-                <MaterialCommunityIcons name="admin-panel" size={size} color={focused ? "blue" : "lightblue"} />}}/> 
+                <MaterialCommunityIcons name="google-maps" size={size} color={focused ? "blue" : "lightblue"} />}}/> 
 
         </Tab.Navigator>
         

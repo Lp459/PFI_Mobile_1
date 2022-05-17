@@ -3,11 +3,11 @@ import { View, StyleSheet , Text, Pressable, Image, Linking } from 'react-native
 import { Database } from '../database';
 import NavScreen from './NavScreen';
 import { useState } from 'react';
-
+import { useCallback } from 'react/cjs/react.production.min';
 
 const db = new Database("Shop");
 
-const OpenURLButton = ({ url, titre }) => {
+/*const OpenURLButton = ({ url, titre }) => {
     const boutonUrl = useCallback(async () => {
       // Regarde si le lien est supporter
       const supporter = await Linking.canOpenURL(url);
@@ -19,7 +19,7 @@ const OpenURLButton = ({ url, titre }) => {
       }
     }, [url]);
     return <Button title={titre} onPress={boutonUrl} />
-}
+}*/
 
 function AccueilScreen() {
     const [user , setUser] = useState([]);
@@ -36,12 +36,13 @@ function AccueilScreen() {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-            <Text>Voici une application mobile qui est semblable à <OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.com"/>
+            <Text>Voici une application mobile qui est semblable à 
              dont vous pouvez acheter des composants d'appareils électronique.
             </Text>
         </View>
     );
 }
+//<OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.com"/>
 
 const styles = StyleSheet.create({
     container: {
