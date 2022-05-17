@@ -36,7 +36,7 @@ function AccueilScreen() {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-            <Text>Voici une application mobile qui est semblable à <OpenURLButton url={"https://NewEgg.com"} titre="NewEgg.com"/>
+            <Text>Voici une application mobile qui est semblable à <OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.com"/>
              dont vous pouvez acheter des composants d'appareils électronique.
             </Text>
         </View>

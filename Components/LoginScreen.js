@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet  } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AcceuilScreen from './AccueilScreen';
+import AccueilScreen from './AccueilScreen';
 import PressableLogin from './PressableLogin';
 import NavScreen from './NavScreen';
 
@@ -18,7 +18,7 @@ function LoginScreen(props) {
             <Stack.Navigator>
             <Stack.Screen name="Connexion" component={AllConnexions} 
             options={{headerTitle: (props) => <View/>}}/>
-            <Stack.Screen name="Acceuil" component={AcceuilScreen}
+            <Stack.Screen name="Acceuil" component={AccueilScreen}
             />
         </Stack.Navigator>
       </NavigationContainer>
