@@ -19,6 +19,7 @@ const OpenURLButton = ({ url, titre }) => {
       }
     }, [url]);
     return <Button title={titre} onPress={boutonUrl} />
+}
 
 function AccueilScreen() {
     const [user , setUser] = useState([]);
