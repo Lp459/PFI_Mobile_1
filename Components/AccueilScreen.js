@@ -1,11 +1,24 @@
 import React from 'react';
-import { View, StyleSheet , Text, Pressable, Image } from 'react-native';
+import { View, StyleSheet , Text, Pressable, Image, Linking } from 'react-native';
 import { Database } from '../database';
 import NavScreen from './NavScreen';
 import { useState } from 'react';
 
 
 const db = new Database("Shop");
+
+const OpenURLButton = ({ url, titre }) => {
+    const boutonUrl = useCallback(async () => {
+      // Regarde si le lien est supporter
+      const supporter = await Linking.canOpenURL(url);
+  
+      if (supporter) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`Le lien n'a pas pu s'ouvrir dans votre navigateur: ${url}`);
+      }
+    }, [url]);
+    return <Button title={titre} onPress={boutonUrl} />
 
 function AccueilScreen() {
     const [user , setUser] = useState([]);
@@ -22,7 +35,7 @@ function AccueilScreen() {
               style={styles.logo}
               source={require('../assets/newEgg.jpg')}
             />
-            <Text>Voici une application mobile qui est semblable à <a href="https://NewEgg.com">NewEgg.com</a>
+            <Text>Voici une application mobile qui est semblable à <OpenURLButton url={"https://NewEgg.com"} titre="NewEgg.com"/>
              dont vous pouvez acheter des composants d'appareils électronique.
             </Text>
         </View>

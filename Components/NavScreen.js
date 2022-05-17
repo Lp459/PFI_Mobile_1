@@ -56,15 +56,18 @@ function NavScreen(props) {
             options={{tabBarIcon: ({size, focused}) =>
             <MaterialCommunityIcons name="google-maps" size={size} color={focused ? "blue" : "lightblue"} />}}/>
         
-        {afficherBonneTab(user) ? <Tab.Screen name="Admin" component={AdminScreen}
+          {afficherBonneTab(user) ? 
+            <Tab.Screen name="Admin" component={AdminScreen}
                 options={{tabBarIcon: ({size, focused}) =>
-                <MaterialCommunityIcons name="admin-panel-settings" size={size} color={focused ? "blue" : "lightblue"} />}}/> :<Tab.Screen name="Magasin" component={ProduitsScreen}
+                <MaterialCommunityIcons name="admin-panel-settings" size={size} color={focused ? "blue" : "lightblue"} />}}/> :
+            <Tab.Screen name="Magasin" component={ProduitsScreen}
                 options={{tabBarIcon: ({size, focused}) =>
-            <MaterialCommunityIcons name="store" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
+                <MaterialCommunityIcons name="store" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
 
-        {afficherBonneTab(user) ?  null :<Tab.Screen name="Panier" component={PanierScreen}
-        options={{tabBarIcon: ({size, focused}) =>
-        <MaterialCommunityIcons name="cart" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
+          {afficherBonneTab(user) ?  null : 
+            <Tab.Screen name="Panier" component={PanierScreen}
+                options={{tabBarIcon: ({size, focused}) =>
+                <MaterialCommunityIcons name="cart" size={size} color={focused ? "blue" : "lightblue"} />}}/>}
         </Tab.Navigator>
         
     );
