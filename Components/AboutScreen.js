@@ -20,6 +20,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  title:{
+    fontSize: 18,
+    fontFamily: "serif",
+    color: 'darkpurple',
+    margin: 5
+  }
 });
 
 export default AboutScreen;

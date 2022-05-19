@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Text, SafeAreaView, useWindowDimensions , useState } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, SafeAreaView, useWindowDimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 function FindUsScreen(props) {
@@ -17,20 +17,21 @@ function FindUsScreen(props) {
   };
 
   const {height, width} = useWindowDimensions();
+  const [region, setRegion] = useState(initialRegion);
 
   return (
-    <SafeAreaView style={{ flex: 1, height: height - 200, width: width - 200 }}>
+    <SafeAreaView style={{ flex: 1, height: height, width: width }}>
       <MapView
-        style={{ flex: 1 }}
+        style={styles.container}
         showsUserLocation
         provider={PROVIDER_GOOGLE}
-        initialRegion={initialRegion}>
+        initialRegion={region}>
         <Marker
           title="NewEgg"
           pinColor="purple"
           description="L'entrepôt de l'entreprise NewEgg est situé ici"
           coordinate={compagnieNewEgg}
-    
+          onPress={() => setRegion(compagnieNewEgg)}
         />
       </MapView>
     </SafeAreaView>
@@ -40,6 +41,8 @@ function FindUsScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
 
