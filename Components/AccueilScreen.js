@@ -14,7 +14,6 @@ import OpenURLButton from "./OpenUrlButton";
 
 
 const Stack = createNativeStackNavigator();
-const db = new Database("Shop");
 
 function AccueilScreen() {
   /*const [user, setUser] = useState([]);

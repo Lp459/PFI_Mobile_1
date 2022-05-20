@@ -25,7 +25,7 @@ const Produit = (props) => {
         props.navigation.navigate("Détail");
       }}
     >
-      <Image style={styles.logo} /*source={require("../assets/", props.image)}*/ />
+      <Image style={styles.logo} source={require(props.image)} />
       <Text>{props.nom}</Text>
       <Text>{props.prix} $</Text>
     </Pressable>

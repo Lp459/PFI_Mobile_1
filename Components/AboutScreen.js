@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "serif",
     color: 'darkpurple',
-    margin: 5
+    margin: 8
   }
 });
 

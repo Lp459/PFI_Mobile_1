@@ -6,9 +6,9 @@ const db = new Database("Shop");
 
 function DetailScreen({ navigation, route }) {
   var id = route.params.id;
-  const [nom, prix, image] = "";
+  const [nom, prix, image, quantite] = "";
 
-  db.execute(`SELECT nom, prix, image FROM produits where id = ${id};`)
+  db.execute(`SELECT nom, prix, image, quantite FROM produits where id = ${id};`)
     .then((resultSet) => {
       [nom, prix, image] = resultSet.rows;
     })
@@ -21,9 +21,10 @@ function DetailScreen({ navigation, route }) {
       <Text style={styles.title}>{nom}</Text>
       <Image
         style={styles.logo}
-        /*source={require("../assets/", image)}*/
+        source={require(image)}
       />
       <Text>{prix} $</Text>
+      <Text>{quantite} restant</Text>
     </View>
   );
 }
