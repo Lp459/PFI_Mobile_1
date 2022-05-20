@@ -1,32 +1,33 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AccueilScreen from "./AccueilScreen";
 import PressableLogin from "./PressableLogin";
-import NavScreen from "./NavScreen";
 
-const Stack = createNativeStackNavigator();
-
-function LoginScreen(props) {
+function LoginScreen({ navigation }) {
   const [connexions, setConnexion] = useState([]);
-  db.execute("select * from connexions;")
-    .then((resultSet) => {
-      setConnexion(resultSet.rows);
-    })
-    .catch((m) => {
-      setErreur("Erreur exec Select " + m);
-    });
+  db.execute("SELECT usager , admin , loggedin FROM connexions;")
+  .then((resultSet) => {
+    setConnexion([...connexions, resultSet.rows]);
+  })
+  .catch((m) => {
+    setErreur("Erreur exec Select " + m);
+  });
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Connexion"
-          component={AllConnexions}
-          options={{ headerTitle: (props) => <View /> }}
+    <View style={styles.container}>
+      {connexions.map((n) => (
+        <PressableLogin
+          onPress={() => {
+            db.execute(
+              `UPDATE connexions set loggedin = 1 where usager='${n.usager}'`
+            );
+            n.admin ? navigation.navigate("Admin") : navigation.navigate("Navigation");
+          }}
+          user={n.usager}
+          flag={n.admin}
+          loggedin={n.loggedin}
         />
-        <Stack.Screen name="Acceuil" component={AccueilScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      ))}
+    </View>
   );
 }
 
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
   },
   pressable_text: {
     fontSize: 15,
-
     alignItems: "center",
   },
 

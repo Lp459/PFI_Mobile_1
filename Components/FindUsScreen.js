@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, useWindowDimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
-function FindUsScreen(props) {
+function FindUsScreen() {
   const compagnieNewEgg = {
     latitude: 43.85721304144486,
     longitude: -79.38078468858814,

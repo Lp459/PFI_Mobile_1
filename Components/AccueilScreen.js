@@ -3,33 +3,21 @@ import {
   View,
   StyleSheet,
   Text,
-  Pressable,
   Image,
-  Linking,
-  Button,
+  Button
 } from "react-native";
 import { Database } from "../database";
-import NavScreen from "./NavScreen";
-import { useState, useCallback } from "react";
+import AboutScreen from "./AboutScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import OpenURLButton from "./OpenUrlButton";
 
+
+const Stack = createNativeStackNavigator();
 const db = new Database("Shop");
 
-const OpenURLButton = ({ url, titre }) => {
-  const boutonUrl = useCallback(async () => {
-    // Regarde si le lien est supporter
-    const supporter = await Linking.canOpenURL(url);
-
-    if (supporter) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Le lien n'a pas pu s'ouvrir dans votre navigateur: ${url}`);
-    }
-  }, [url]);
-  return <Button color="#87CEEB" title={titre} onPress={boutonUrl} />;
-};
-
 function AccueilScreen() {
-  const [user, setUser] = useState([]);
+  /*const [user, setUser] = useState([]);
 
   db.execute("SELECT id , usager , admin FROM connexions where loggedin = 1;")
     .then((resultSet) => {
@@ -37,25 +25,40 @@ function AccueilScreen() {
     })
     .catch((m) => {
       setErreur("Erreur exec Select " + m);
-    });
+    });*/
   //admin
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
-      <Image style={styles.logo} source={require("../assets/newEgg.jpg")} />
-      <Text style={styles.text_accueil} selectable>
-        Voici une application mobile qui est semblable à NewEgg.ca dont vous
-        pouvez acheter des composants d'appareils électronique.
-      </Text>
-      <View style={styles.buttonContainer}>
-        <Text style={[styles.text_accueil, styles.text_lien]} selectable>
-          Le lien ci-dessous redirige vers la page Web de l'entreprise
-        </Text>
-        <View style={styles.buttonUrl}>
-          <OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.ca" />
+    <NavigationContainer style={styles.container}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="À propos"
+          component={AboutScreen}
+          options={{ headerTitle: (props) => <View />}}
+        />
+        <View style={styles.aboutContainer}>
+          <Button
+            touchSoundDisabled={false}
+            title="À propos"
+            color='lightgrey'
+            onPress={() => navigate.navigate("À propos")}
+          />
         </View>
-      </View>
-    </View>
+        <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
+        <Image style={styles.logo} source={require("../assets/newEgg.jpg")} />
+        <Text style={styles.text_accueil}>
+          Voici une application mobile qui est semblable à NewEgg.ca dont vous
+          pouvez acheter des composants d'appareils électronique.
+        </Text>
+        <View style={styles.buttonContainer}>
+          <Text style={[styles.text_accueil, styles.text_lien]}>
+            Le lien ci-dessous redirige vers la page Web de l'entreprise
+          </Text>
+          <View style={styles.buttonUrl}>
+            <OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.ca" />
+          </View>
+        </View>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -109,6 +112,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
+  aboutContainer: {
+    fontSize: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  }
 });
 
 export default AccueilScreen;
