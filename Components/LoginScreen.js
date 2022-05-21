@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import PressableLogin from "./PressableLogin";
+import { Database } from "../database";
+
+const db = new Database("Shop");
 
 function LoginScreen({ navigation }) {
   const [connexions, setConnexion] = useState([]);
   db.execute("SELECT usager , admin , loggedin FROM connexions;")
   .then((resultSet) => {
-    setConnexion([...connexions, resultSet.rows]);
+    setConnexion([resultSet.rows]);
   })
   .catch((m) => {
-    setErreur("Erreur exec Select " + m);
+    console.log("Erreur exec Select " + m);
   });
 
   return (
