@@ -9,30 +9,30 @@ import NavScreenAdmin from "./Components/NavScreenAdmin";
 import NavScreen from "./Components/NavScreen";
 import init_tab from "./Database/init_tab";
 import updateLoggedIn from "./Database/updateLoggedIn";
-import LoginScreen from "./Components/LoginScreen"
-
+import LoginScreen from "./Components/LoginScreen";
 const db = new Database("Shop");
 const Stack = createNativeStackNavigator();
 
 init_tab(db);
 
 export default function App() {
+
   updateLoggedIn(db);
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        
         <Stack.Screen
           name="Connexion"
           component={LoginScreen}
           options={{ headerTitle: () => <View /> }}
         />
         <Stack.Screen name="Navigation" component={NavScreen} />
-        <Stack.Screen name="Administrateur" component={NavScreenAdmin} options={{ headerTitle: () => <View />}} />
+        <Stack.Screen name="Admin" component={NavScreenAdmin} options={{ headerTitle: () => <View />}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

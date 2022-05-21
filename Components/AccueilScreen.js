@@ -26,37 +26,28 @@ function AccueilScreen() {
     });*/
   //admin
   return (
-    <NavigationContainer style={styles.container}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="À propos"
-          component={AboutScreen}
-          options={{ headerTitle: (props) => <View />}}
-        />
-        <View style={styles.aboutContainer}>
-          <Button
-            touchSoundDisabled={false}
-            title="À propos"
-            color='lightgrey'
-            onPress={() => navigate.navigate("À propos")}
-          />
-        </View>
-        <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
-        <Image style={styles.logo} source={require("../assets/newEgg.jpg")} />
-        <Text style={styles.text_accueil}>
-          Voici une application mobile qui est semblable à NewEgg.ca dont vous
-          pouvez acheter des composants d'appareils électronique.
-        </Text>
-        <View style={styles.buttonContainer}>
-          <Text style={[styles.text_accueil, styles.text_lien]}>
-            Le lien ci-dessous redirige vers la page Web de l'entreprise
-          </Text>
-          <View style={styles.buttonUrl}>
-            <OpenURLButton url={"https://NewEgg.ca"} titre="NewEgg.ca" />
-          </View>
-        </View>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <View style={styles.aboutContainer}>
+      <Button
+        touchSoundDisabled={false}
+        title="À propos"
+        color='lightgrey'
+        onPress={() => navigate.navigate("À propos")}
+      />
+    <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
+    <Image style={styles.logo} source={require("../assets/newEgg.jpg")} />
+    <Text style={styles.text_accueil}>
+      Voici une application mobile qui est semblable à NewEgg.ca dont vous
+      pouvez acheter des composants d'appareils électronique.
+    </Text>
+    <View style={styles.buttonContainer}>
+      <Text style={[styles.text_accueil, styles.text_lien]}>
+        Le lien ci-dessous redirige vers la page Web de l'entreprise
+      </Text>
+  </View>
+  </View>
+
+
+
   );
 }
 

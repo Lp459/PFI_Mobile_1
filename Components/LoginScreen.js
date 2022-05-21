@@ -7,9 +7,9 @@ const db = new Database("Shop");
 
 function LoginScreen({ navigation }) {
   const [connexions, setConnexion] = useState([]);
-  db.execute("SELECT usager , admin , loggedin FROM connexions;")
+  db.execute("SELECT nom , admin , loggedin FROM connexions;")
   .then((resultSet) => {
-    setConnexion([resultSet.rows]);
+    setConnexion(resultSet.rows);
   })
   .catch((m) => {
     console.log("Erreur exec Select " + m);
@@ -21,11 +21,11 @@ function LoginScreen({ navigation }) {
         <PressableLogin
           onPress={() => {
             db.execute(
-              `UPDATE connexions set loggedin = 1 where usager='${n.usager}'`
+              `UPDATE connexions set loggedin = 1 where nom='${n.nom}'`
             );
             n.admin ? navigation.navigate("Admin") : navigation.navigate("Navigation");
           }}
-          user={n.usager}
+          user={n.nom}
           flag={n.admin}
           loggedin={n.loggedin}
         />

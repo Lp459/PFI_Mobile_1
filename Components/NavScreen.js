@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PanierScreen from "./PanierScreen";
 import { Database } from "../database";
 import { MaterialIcons } from "@expo/vector-icons";
+import AboutScreen from "./AboutScreen";
 
 const Tab = createBottomTabNavigator();
 const db = new Database("Shop");
@@ -30,6 +31,19 @@ function NavScreen(props) {
       <Tab.Screen
         name="Accueil"
         component={AccueilScreen}
+        options={{
+          tabBarIcon: ({ size, focused }) => (
+            <MaterialCommunityIcons
+              name="accueil"
+              size={size}
+              color={focused ? "blue" : "lightblue"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={AboutScreen}
         options={{
           tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons
