@@ -6,6 +6,7 @@ import FindUsScreen from "./FindUsScreen";
 import { useState } from "react";
 import ProduitsScreen from "./ProduitsScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 import PanierScreen from "./PanierScreen";
 import { Database } from "../database";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -26,6 +27,7 @@ function NavScreen(props) {
   .catch((m) => {
     console.log("Erreur exec Select " + m);
   });
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -34,7 +36,7 @@ function NavScreen(props) {
         options={{
           tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons
-              name="accueil"
+              name="home-circle"
               size={size}
               color={focused ? "blue" : "lightblue"}
             />
@@ -47,7 +49,7 @@ function NavScreen(props) {
         options={{
           tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons
-              name="accueil"
+              name="information"
               size={size}
               color={focused ? "blue" : "lightblue"}
             />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet , Text } from "react-native";
 import PressableLogin from "./PressableLogin";
 import { Database } from "../database";
 
@@ -17,13 +17,14 @@ function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text>Connexion :</Text>
       {connexions.map((n) => (
         <PressableLogin
           onPress={() => {
             db.execute(
               `UPDATE connexions set loggedin = 1 where nom='${n.nom}'`
             );
-            n.admin ? navigation.navigate("Admin") : navigation.navigate("Navigation");
+            n.admin ? navigation.navigate("Admin") : navigation.navigate("Login");
           }}
           user={n.nom}
           flag={n.admin}

@@ -11,6 +11,7 @@ function PressableLogin({ onPress, user, flag, loggedin }) {
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
       onPress={onPress}
+      key={0}
     >
       <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>
         {user}

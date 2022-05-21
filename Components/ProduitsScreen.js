@@ -15,47 +15,60 @@ import DetailScreen from "./DetailScreen";
 const Stack = createNativeStackNavigator();
 const db = new Database("Shop");
 
-const Produit = (props) => {
+const Produit = ({id , nom , prix , image , navigation}) => {
 
   return (
-    <Pressable
+    <Pressable style={styles.itemBox}
       onPress={() => {
-        setId(props.id);
-        props.navigation.navigate("Détail");
+        
+        navigation.navigate("Detail" , {id: id});
       }}
     >
-      <Image style={styles.logo} source={{uri: props.image}} />
-      <Text>{props.nom}</Text>
-      <Text>{props.prix} $</Text>
+      <Image style={styles.logo} source={{uri:image}} />
+
+      <Text>{nom}</Text>
+      <Text>prix :{prix} $</Text>
     </Pressable>
   );
 };
 
 function ProduitsScreen({ navigation }) {
 
+  
+  return (
+  
+      <Stack.Navigator>
+        <Stack.Screen
+          name="ListProduits"
+          component={ListProduits}
+          options={{ headerShown: false}} 
+        />
+        
+        <Stack.Screen name="Detail"
+          component={DetailScreen}
+          options={{ headerShown: false}}
+           />
+      </Stack.Navigator>
+  );
+}
+function ListProduits({navigation}){
   const [produits, setProduits] = useState([]);
-  const [id, setId] = useState(0);
+  
 
   db.execute("SELECT id, nom , prix , image FROM produits;")
     .then((resultSet) => {
-      setProduits([...produits, resultSet.rows]);
+      setProduits(resultSet.rows);
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
 
   return (
-    <NavigationContainer style={styles.container}>
-      <Stack.Navigator>
-        <Text style={styles.title}>Nos produits</Text>
-        <Stack.Screen
-          name="Détail"
-          component={DetailScreen}
-          options={{ headerTitle: () => <View />, id: id }}
-        />
-        <FlatList
+    <View>
+      <FlatList
           data={produits}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
+        
             <Produit
               id={item.id}
               nom={item.nom}
@@ -63,12 +76,14 @@ function ProduitsScreen({ navigation }) {
               image={item.image}
               navigation={navigation}
             />
+            
           )}
           keyExtractor={(item) => item.id.toString()}
+          
         />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    </View>
+  )
+
 }
 
 const styles = StyleSheet.create({
@@ -76,6 +91,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  itemBox: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor:'#9BA1AB',
+    borderWidth:0.5,
   },
   logo: {
     width: 130,

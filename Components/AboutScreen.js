@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 18,
     fontFamily: "serif",
-    color: 'darkpurple',
+    color: 'purple',
     margin: 8
   }
 });
