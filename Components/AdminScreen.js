@@ -8,8 +8,9 @@ const db = new Database("Shop");
 const [id, onChangeId] = useState(null);
 const [nom, onChangeNom] = useState("");
 const [prix, onChangePrix] = useState(0.00);
-const [image, onChangeImage] = useState("");
+const [image, onChangeImage] = useState("https://");
 const [quantite, onChangeQuantite] = useState(0);
+const [description, onChangeDescription] = useState("");
 
 function AdminScreen() {
     return (
@@ -44,7 +45,8 @@ function AdminScreen() {
                     style={styles.input}
                     onChangeText={onChangeImage}
                     value={image}
-                    placeholder="../assets/image.jpg..."
+                    keyboardType="url"
+                    placeholder="https://image.jpg"
                 />
                 <Text>La quantité</Text>
                 <TextInput
@@ -53,11 +55,16 @@ function AdminScreen() {
                     value={quantite}
                     keyboardType="number-pad"
                 />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeDescription}
+                    value={description}
+                />
             </View>
             <Button
               title='Soumettre'
               color="#87CEEB"
-              onPress={() => /*Faire fonction DB pour verifier entrées*/insertProduit(db, id, nom, prix, image, quantite)}
+              onPress={() => /*Faire fonction DB pour verifier entrées*/insertProduit(db, id, nom, prix, image, quantite, description)}
             />
         </View>
     );

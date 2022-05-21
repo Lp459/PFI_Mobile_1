@@ -6,7 +6,6 @@ import {
   Image,
   Button
 } from "react-native";
-import { Database } from "../database";
 import AboutScreen from "./AboutScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

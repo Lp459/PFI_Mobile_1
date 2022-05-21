@@ -2,7 +2,7 @@ import ajouterProduits from "../Database/ajouterProduits"
 
 function init_tab(db) {
     db.execute("drop table if exists produits;");
-    db.execute("create table produits (id, nom, prix, image, quantite);");
+    db.execute("create table produits (id, nom, prix, image, quantite, description);");
     db.execute("drop table if exists connexions;");
     db.execute(
       "create table connexions (id , nom, motdepasse, admin , loggedin);"

@@ -4,13 +4,23 @@ import { Database } from "../database";
 
 const db = new Database("Shop");
 
+const TextArea = (props) => {
+  const [description] = props.value;
+
+  return (
+    <View style={styles.textArea}>
+      <Text>{description}</Text>
+    </View>
+  )
+}
+
 function DetailScreen({ navigation, route }) {
   var id = route.params.id;
-  const [nom, prix, image, quantite] = "";
+  const [nom, prix, image, quantite, description] = "";
 
-  db.execute(`SELECT nom, prix, image, quantite FROM produits where id = ${id};`)
+  db.execute(`SELECT nom, prix, image, quantite, description FROM produits where id = ${id};`)
     .then((resultSet) => {
-      [nom, prix, image] = resultSet.rows;
+      [nom, prix, image, quantite, description] = resultSet.rows;
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
@@ -21,10 +31,13 @@ function DetailScreen({ navigation, route }) {
       <Text style={styles.title}>{nom}</Text>
       <Image
         style={styles.logo}
-        source={require(image)}
+        source={{uri: image}}
       />
       <Text>{prix} $</Text>
       <Text>{quantite} restant</Text>
+      <TextArea 
+        value={description}
+      />
     </View>
   );
 }
@@ -46,6 +59,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     margin: 3,
   },
+  textArea: {
+    borderWidth: 4,
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderRadius: 5,
+    margin: 10
+  }
 });
 
 export default DetailScreen;

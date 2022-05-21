@@ -22,7 +22,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Login"
+          name="Connexion"
           component={LoginScreen}
           options={{ headerTitle: () => <View /> }}
         />
