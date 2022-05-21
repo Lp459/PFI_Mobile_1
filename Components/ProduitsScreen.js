@@ -14,10 +14,9 @@ import DetailScreen from "./DetailScreen";
 
 const Stack = createNativeStackNavigator();
 const db = new Database("Shop");
-const [produits, setProduits] = useState([]);
-const [id, setId] = useState(0);
 
 const Produit = (props) => {
+
   return (
     <Pressable
       onPress={() => {
@@ -33,6 +32,9 @@ const Produit = (props) => {
 };
 
 function ProduitsScreen({ navigation }) {
+
+  const [produits, setProduits] = useState([]);
+  const [id, setId] = useState(0);
 
   db.execute("SELECT id, nom , prix , image FROM produits;")
     .then((resultSet) => {

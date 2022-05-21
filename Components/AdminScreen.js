@@ -5,14 +5,14 @@ import insertProduit from '../Database/insertProduit';
 
 const db = new Database("Shop");
 
-const [id, onChangeId] = useState(null);
-const [nom, onChangeNom] = useState("");
-const [prix, onChangePrix] = useState(0.00);
-const [image, onChangeImage] = useState("https://");
-const [quantite, onChangeQuantite] = useState(0);
-const [description, onChangeDescription] = useState("");
 
 function AdminScreen() {
+    const [id, onChangeId] = useState(null);
+    const [nom, onChangeNom] = useState("");
+    const [prix, onChangePrix] = useState(0.00);
+    const [image, onChangeImage] = useState("https://");
+    const [quantite, onChangeQuantite] = useState(0);
+    const [description, onChangeDescription] = useState("");
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Administrateur</Text>
