@@ -12,13 +12,21 @@ import insertProduit from "../Database/insertProduit";
 
 const db = new Database("Shop");
 
+const valueId = null;
+const valueNom = "";
+const valuePrix = 0.0;
+const valueImage = "https://";
+const valueQuantite = 0;
+const valueDescription = "";
+
 function AdminScreen() {
-  const [id, onChangeId] = useState(null);
-  const [nom, onChangeNom] = useState("");
-  const [prix, onChangePrix] = useState(0.0);
-  const [image, onChangeImage] = useState("https://");
-  const [quantite, onChangeQuantite] = useState(0);
-  const [description, onChangeDescription] = useState("");
+  const [id, onChangeId] = useState(valueId);
+  const [nom, onChangeNom] = useState(valueNom);
+  const [prix, onChangePrix] = useState(valuePrix);
+  const [image, onChangeImage] = useState(valueImage);
+  const [quantite, onChangeQuantite] = useState(valueQuantite);
+  const [description, onChangeDescription] = useState(valueDescription);
+  const [isSend, SetIsSend] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -73,19 +81,28 @@ function AdminScreen() {
             <Button
             title="Soumettre"
             color="#87CEEB"
-            onPress={() =>
-                /*Faire fonction DB pour verifier entrées*/ insertProduit(
-                db,
-                id,
-                nom,
-                prix,
-                image,
-                quantite,
-                description
-                )
+            onPress={() => {
+                    SetIsSend(true);
+                    onChangeId(valueId);
+                    onChangeNom(valueNom);
+                    onChangePrix(valuePrix);
+                    onChangeImage(valueImage);
+                    onChangeQuantite(valueQuantite);
+                    onChangeDescription(valueDescription);
+                    /*Faire fonction DB pour verifier entrées*/ insertProduit(
+                    db,
+                    id,
+                    nom,
+                    prix,
+                    image,
+                    quantite,
+                    description
+                    )
+                }
             }
             />
         </View>
+        <Text style={{color: "green", alignSelf: "center"}}>{isSend ? "Votre produit a été ajouté." : "Envoi échoué!"}</Text>
       </ScrollView>
     </View>
   );
@@ -104,7 +121,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     margin: 3,
     backgroundColor: "black",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingLeft: 20,
+    marginLeft: 15
   },
   input: {
     height: 40,
