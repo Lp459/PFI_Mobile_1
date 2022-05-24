@@ -7,6 +7,8 @@ function init_tab(db) {
     db.execute(
       "create table connexions (id , nom, motdepasse, admin , loggedin);"
     );
+    db.execute("drop table if exists panier");
+    db.execute("create table panier (id, userId, idProduit);");
   
     ajouterProduits(db);
   

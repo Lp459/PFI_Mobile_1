@@ -7,20 +7,9 @@ import { Database } from "../database";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
-const db = new Database("Shop");
 
 function NavScreen(props) {
-  /*const [user, setUser] = useState([]);
 
-  db.execute(
-    "SELECT id , nom , admin , loggedin FROM connexions where admin = 1 and loggedin = 1;"
-  )
-    .then((resultSet) => {
-      setUser(resultSet.rows);
-    })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });*/
   return (
     <Tab.Navigator>
       <Tab.Screen

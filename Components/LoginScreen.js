@@ -7,7 +7,7 @@ const db = new Database("Shop");
 
 function LoginScreen({ navigation }) {
   const [connexions, setConnexion] = useState([]);
-  db.execute("SELECT nom , admin , loggedin FROM connexions;")
+  db.execute("SELECT id, nom , admin , loggedin FROM connexions;")
   .then((resultSet) => {
     setConnexion(resultSet.rows);
   })
@@ -17,9 +17,10 @@ function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Connexion :</Text>
+      <Text style={styles.title}>Connexion :</Text>
       {connexions.map((n) => (
         <PressableLogin
+          key={n.id}
           onPress={() => {
             db.execute(
               `UPDATE connexions set loggedin = 1 where nom='${n.nom}'`
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: "white",
     backgroundColor: "#38f",
+    margin: 20
   },
   ligneCroisiere: {
     fontSize: 30,
