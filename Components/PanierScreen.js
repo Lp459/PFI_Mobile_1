@@ -1,76 +1,104 @@
 import React from "react";
-import { View, StyleSheet, Text, FlatList, Button } from "react-native";
+import { View, StyleSheet, Text, FlatList, Button  } from "react-native";
 import { Database } from "../database";
+import { useState } from "react";
+import Produit from "./Produit";
 
 const db = new Database("Shop");
-var items = [];
 var prixTotal = 0.0;
 
-const InitListeItems = (userId) => {
-  db.execute(`select * from panier where userId = ${userId};`)
-    .then((result) => {
-      items.push(result.rows);
+const AfficherListe = ({navigation , userId}) => {
+  const [produits, setProduits] = useState([]);
+  
+  
+  db.execute(`SELECT id, nom , prix , image FROM produits where id = ${userId} ;`)
+    .then((resultSet) => {
+      setProduits(resultSet.rows);
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
-};
-
-const AfficherListe = (props) => {
-  if (props.liste.length == 0) {
+    produits.forEach(element => {
+      CalculerTotal(element.id);
+    });
+  if (produits.length == 0) {
     return (
       <View>
         <Text>Il semble que votre panier soit vide...</Text>
       </View>
     );
   } else {
-    return (
-      <View style={{ alignSelf: "flex-start" }}>
-        <FlatList
-          data={props.liste}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={(item) => (
+    
+  return (
+    <View>
+      <FlatList
+          data={produits}
+          renderItem={({item}) => (
+        
             <Produit
               id={item.id}
               nom={item.nom}
               prix={item.prix}
               image={item.image}
-              navigation={props.navigation}
+              navigation={navigation}
             />
+            
           )}
+          keyExtractor={(item) => item.id.toString()}
+          
         />
-      </View>
-    );
+    </View>
+  )
   }
 };
 
 const ProcederAuPaiement = () => {
   items = [];
   prixTotal = 0;
+  //delete from panier where userid = id
 };
 
-const CalculerTotal = () => {
-  db.execute(`select prix from panier where userId = ${userId};`)
+const CalculerTotal = (idProduit) => {
+  const [prix , setPrix] = useState(0);
+  db.execute(`select prix from produits where id = ${idProduit};`)
     .then((result) => {
-      prixTotal += result.rows;
+      setPrix(result.rows);
+      prix.forEach(element => {
+        prixTotal += element.prix;  
+      });
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
 };
 
-function PanierScreen({ navigation, route }) {
+function PanierScreen({navigation}) {
+  const [user, setUser] = useState([]);
+  const [id , setId] = useState(0);
+  db.execute("SELECT id FROM connexions where loggedin = 1;")
+    .then((resultSet) => {
+      setUser(resultSet.rows);
+      user.forEach(element => {
+        
+        setId(element.id);
+        
+
+      });
+    })
+    .catch((m) => {
+      console.log("Erreur exec Select " + m);
+    });
+    
+  
+ 
+  
   {
-    CalculerTotal;
-  }
-  const userId = route.params;
-  {
-    InitListeItems(userId);
+    CalculerTotal();
   }
   return (
     <View style={styles.container}>
       <View style={styles.panierContainer}>
-        <AfficherListe liste={items} navigation={navigation} />
+        <AfficherListe userId={id} navigation={navigation} />
       </View>
       <View style={styles.panierContainer}>
         <Text>Résumé</Text>

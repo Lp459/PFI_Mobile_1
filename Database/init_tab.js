@@ -2,13 +2,14 @@ import ajouterProduits from "../Database/ajouterProduits"
 
 function init_tab(db) {
     db.execute("drop table if exists produits;");
-    db.execute("create table produits (id, nom, prix, image, quantite, description);");
+    db.execute("create table produits (id , nom, prix, image, quantite, description);");
     db.execute("drop table if exists connexions;");
     db.execute(
       "create table connexions (id , nom, motdepasse, admin , loggedin);"
     );
     db.execute("drop table if exists panier");
-    db.execute("create table panier (id, userId, idProduit);");
+    db.execute("create table panier (userId, idProduit);");
+    db.execute("insert into panier values(2 , 4)");
   
     ajouterProduits(db);
   

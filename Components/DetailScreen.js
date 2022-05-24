@@ -15,22 +15,26 @@ const TextArea = (props) => {
 
 function DetailScreen({ navigation, route }) {
   const [user, setUser] = useState([]);
-
+  var id =0;
   db.execute("SELECT id FROM connexions where loggedin = 1;")
     .then((resultSet) => {
       setUser(resultSet.rows);
+      id = user.id;
+      
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
-  const { id } = route.params;
+  const { idObjet } = route.params;
   const [donner, setDonner] = useState([]);
+
   var [nom, prix, image, quantite, description] = "";
   db.execute(
-    `SELECT nom, prix, image, quantite, description FROM produits where id = ${id};`
+    `SELECT nom, prix, image, quantite, description FROM produits where id = ${idObjet};`
   )
     .then((resultSet) => {
       setDonner(resultSet.rows);
+      
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
@@ -51,15 +55,14 @@ function DetailScreen({ navigation, route }) {
       <Text>{quantite} restant</Text>
       <TextArea value={description} />
       <BoutonAcheter
-        idUser={user.id}
-        idObjet={id}
-        onPress={(m) => {
-          console.log("ici on va call fonction valider achat");
-        }}
+        idUser={id}
+        idObjet={idObjet}
+        
       />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

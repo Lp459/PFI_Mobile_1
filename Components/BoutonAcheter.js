@@ -2,7 +2,10 @@ import React  from 'react';
 import { View, StyleSheet , Text } from 'react-native';
 import { Pressable } from 'react-native';
 import { useState } from 'react';
-function BoutonAcheter({idUser , idObjet , onPress}) {
+import { Database } from '../database';
+import currentId from '../Database/IDGenerator';
+const db = new Database("Shop");  
+function BoutonAcheter({idUser , idObjet}) {
     const [isPressed, setIsPressed] = useState(false);
     return (
         <View style={styles.container}>
@@ -10,7 +13,21 @@ function BoutonAcheter({idUser , idObjet , onPress}) {
                 style={isPressed ? styles.appuye : styles.pressable}
                 onPressIn={() => setIsPressed(true)}
                 onPressOut={() => setIsPressed(false)}
-                onPress={onPress}
+                onPress={(m) => {
+                    
+                    db.execute(
+                      `INSERT INTO panier VALUES (${idUser},${idObjet});`
+
+                      ).then(()=>{
+                          console.log('insertion fait');
+                      })
+
+                      
+                  .catch(() => {
+                      console.log(idUser , idObjet)
+                      console.log("Insertion de produit échoué");
+                  });
+                  }}
                 >
                 <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>
                     Ajouter au Panier

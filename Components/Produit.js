@@ -6,7 +6,7 @@ const Produit = ({ id, nom, prix, image, navigation }) => {
       <Pressable
         style={styles.itemBox}
         onPress={() => {
-          navigation.navigate("Detail", { id: id });
+          navigation.navigate("Detail", { idObjet: id });
         }}
       >
         <Image style={styles.logo} source={{ uri: image }} />
