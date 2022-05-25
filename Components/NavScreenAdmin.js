@@ -14,6 +14,7 @@ function NavScreen({navigation , route}) {
   return (
     <Tab.Navigator>
       <Tab.Screen
+        initialParams={{user:user}}
         name="Produits"
         component={ProduitsScreen}
         options={{
