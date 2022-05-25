@@ -1,7 +1,4 @@
-import {
-  StyleSheet,
-  View
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Database } from "./database";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,7 +13,6 @@ const Stack = createNativeStackNavigator();
 init_tab(db);
 
 export default function App() {
-
   updateLoggedIn(db);
   return (
     <NavigationContainer>
@@ -27,12 +23,15 @@ export default function App() {
           options={{ headerTitle: () => <View /> }}
         />
         <Stack.Screen name="Login" component={NavScreen} />
-        <Stack.Screen name="Admin" component={NavScreenAdmin} options={{ headerTitle: () => <View />}} />
+        <Stack.Screen
+          name="Admin"
+          component={NavScreenAdmin}
+          options={{ headerTitle: () => <View /> }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -69,10 +68,8 @@ const styles = StyleSheet.create({
   },
   pressable_text: {
     fontSize: 15,
-
     alignItems: "center",
   },
-
   appuye: {
     backgroundColor: "#26e",
     padding: 6,

@@ -1,37 +1,34 @@
-import { View, Text, Pressable, Image, StyleSheet,Button } from "react-native";
-import {useState} from 'react';
-import Intl from 'intl';
-import 'intl/locale-data/jsonp/fr-CA';
-import 'intl/locale-data/jsonp/en-CA';
+import { View, Text, Pressable, Image, StyleSheet, Button } from "react-native";
+import { useState } from "react";
+import Intl from "intl";
+import "intl/locale-data/jsonp/fr-CA";
+import "intl/locale-data/jsonp/en-CA";
 
 const trad = {
   fr: {
-    prix:"prix:",
-    nom:"nom:"
+    prix: "Prix:",
+    nom: "Nom:",
   },
   en: {
-    prix:"price:",
-    nom:"name:"
-  }
-}
+    prix: "Price:",
+    nom: "Name:",
+  },
+};
 
-
-function traduitProduit(enOrFr , nom , prix){
-  if(enOrFr == 'fr'){
+function traduitProduit(enOrFr, nom, prix) {
+  if (enOrFr == "fr") {
     return `${trad.fr.nom} ${nom}
             ${trad.fr.prix} ${prix}`;
   }
-  if(enOrFr == 'en'){
+  if (enOrFr == "en") {
     return `${trad.en.nom} ${nom}
             ${trad.en.prix} ${prix}`;
   }
 }
 
-const Produit = ({ id, nom, prix, image, navigation ,enFr}) => {
-  
+const Produit = ({ id, nom, prix, image, navigation, enFr }) => {
   return (
     <View style={styles.itemContainer}>
-      
       <Pressable
         style={styles.itemBox}
         onPress={() => {
@@ -39,11 +36,7 @@ const Produit = ({ id, nom, prix, image, navigation ,enFr}) => {
         }}
       >
         <Image style={styles.logo} source={{ uri: image }} />
-        <Text>
-        {traduitProduit(enFr , nom , prix)}
-        </Text>
-        
-        
+        <Text>{traduitProduit(enFr, nom, prix)}</Text>
       </Pressable>
     </View>
   );
@@ -59,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: 5
+    margin: 5,
   },
   itemBox: {
     flex: 1,

@@ -7,9 +7,15 @@ function AboutScreen(props) {
     <View style={styles.container}>
       <Text style={styles.title}>À propos de nous</Text>
       <Text>Louis-philippe Rousseau</Text>
-      <OpenURLButton url={"mailto:louis-philippe_rousseau@gmail.com"} titre={"louis-philippe_rousseau@gmail.com"}/>
+      <OpenURLButton
+        url={"mailto:louis-philippe_rousseau@gmail.com"}
+        titre={"louis-philippe_rousseau@gmail.com"}
+      />
       <Text>Alexandre Carle</Text>
-      <OpenURLButton url={"mailto:alexCarle@gmail.com"} titre={"alexCarle@gmail.com"}/>
+      <OpenURLButton
+        url={"mailto:a.carle2019@gmail.com"}
+        titre={"a.carle2019@gmail.com"}
+      />
     </View>
   );
 }
@@ -21,12 +27,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title:{
+  title: {
     fontSize: 18,
     fontFamily: "serif",
-    color: 'purple',
-    margin: 8
-  }
+    color: "purple",
+    margin: 8,
+  },
 });
 
 export default AboutScreen;

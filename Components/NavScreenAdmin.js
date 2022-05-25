@@ -8,13 +8,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
-function NavScreen({navigation , route}) {
-  const {user}=route.params;
+function NavScreen({ navigation, route }) {
+  const { user } = route.params;
 
   return (
     <Tab.Navigator>
       <Tab.Screen
-        initialParams={{user:user}}
+        initialParams={{ user: user }}
         name="Produits"
         component={ProduitsScreen}
         options={{

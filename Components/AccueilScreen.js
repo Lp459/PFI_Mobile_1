@@ -20,7 +20,7 @@ function AccueilScreen() {
         <Text style={[styles.text_accueil, styles.text_lien]}>
           Le lien ci-dessous redirige vers la page Web de l'entreprise
         </Text>
-        <OpenURLButton url={"https://newegg.ca"} titre="NewEgg.ca"/>
+        <OpenURLButton url={"https://newegg.ca"} titre="NewEgg.ca" />
       </View>
     </View>
   );

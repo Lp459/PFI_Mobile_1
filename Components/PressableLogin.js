@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import { useState } from "react";
 
-
 function PressableLogin({ onPress, user, flag, loggedin }) {
   const [isPressed, setIsPressed] = useState(false);
   return (
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   },
   pressable_text: {
     fontSize: 15,
-    alignItems: "center"
+    alignItems: "center",
   },
   appuye: {
     backgroundColor: "#26e",
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
   texteNormal: {
     color: "blue",
     fontWeight: "bold",
-  }
+  },
 });
 
 export default PressableLogin;

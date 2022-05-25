@@ -14,7 +14,7 @@ const TextArea = (props) => {
 };
 
 function DetailScreen({ navigation, route }) {
-  const {user} = route.params;
+  const { user } = route.params;
 
   const { idObjet } = route.params;
   const [donner, setDonner] = useState([]);
@@ -25,7 +25,6 @@ function DetailScreen({ navigation, route }) {
   )
     .then((resultSet) => {
       setDonner(resultSet.rows);
-      
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
@@ -51,12 +50,10 @@ function DetailScreen({ navigation, route }) {
         idObjet={idObjet}
         prix={prix}
         image={image}
-        
       />
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -82,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
     padding: 5,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
 });
 

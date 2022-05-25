@@ -18,7 +18,7 @@ const db = new Database("Shop");
 function ListProduits({navigation , route}){
     
     const [produits, setProduits] = useState([]);
-    const [enFR , setEnFr]= useState('fr');
+    const [langue , setLangue]= useState('fr');
   
     db.execute("SELECT id, nom , prix , image FROM produits;")
       .then((resultSet) => {
@@ -30,8 +30,8 @@ function ListProduits({navigation , route}){
   
     return (
       <View>
-      <Button title='FR-CA' onPress={()=>{setEnFr('fr')}} ></Button>
-      <Button title='EN-CA' onPress={()=>{setEnFr('en')}} ></Button>
+      <Button title='FR-CA' onPress={()=>{setLangue('fr')}} />
+      <Button title='EN-CA' onPress={()=>{setLangue('en')}} />
         <FlatList
             data={produits}
             renderItem={({item}) => (
@@ -42,7 +42,7 @@ function ListProduits({navigation , route}){
                 prix={item.prix}
                 image={item.image}
                 navigation={navigation}
-                enFr={enFR}
+                enFr={langue}
               />
               
             )}

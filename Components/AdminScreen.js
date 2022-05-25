@@ -26,7 +26,6 @@ function AdminScreen() {
   const [image, onChangeImage] = useState(valueImage);
   const [quantite, onChangeQuantite] = useState(valueQuantite);
   const [description, onChangeDescription] = useState(valueDescription);
-  const [isSend, SetIsSend] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -82,7 +81,6 @@ function AdminScreen() {
             title="Soumettre"
             color="#87CEEB"
             onPress={() => {
-                    SetIsSend(true);
                     onChangeId(valueId);
                     onChangeNom(valueNom);
                     onChangePrix(valuePrix);
@@ -98,11 +96,11 @@ function AdminScreen() {
                     quantite,
                     description
                     )
+                    alert("Votre produit a été ajouté avec succès!");
                 }
             }
             />
         </View>
-        <Text style={{color: "green", alignSelf: "center"}}>{isSend ? "Votre produit a été ajouté." : "Envoi échoué!"}</Text>
       </ScrollView>
     </View>
   );

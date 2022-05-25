@@ -6,7 +6,7 @@ import FindUsScreen from "./FindUsScreen";
 import { useState } from "react";
 import ProduitsScreen from "./ProduitsScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import PanierScreen from "./PanierScreen";
 import { Database } from "../database";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -15,19 +15,17 @@ import AboutScreen from "./AboutScreen";
 const Tab = createBottomTabNavigator();
 const db = new Database("Shop");
 
-function NavScreen({navigation , route}) {
-  const {user}=route.params;
+function NavScreen({ navigation, route }) {
+  const { user } = route.params;
   const [id, setId] = useState([]);
 
-  db.execute(
-    "SELECT id FROM connexions where loggedin = 1;"
-  )
-  .then((resultSet) => {
-    setId(resultSet.rows);
-  })
-  .catch((m) => {
-    console.log("Erreur exec Select " + m);
-  });
+  db.execute("SELECT id FROM connexions where loggedin = 1;")
+    .then((resultSet) => {
+      setId(resultSet.rows);
+    })
+    .catch((m) => {
+      console.log("Erreur exec Select " + m);
+    });
 
   return (
     <Tab.Navigator>
@@ -73,7 +71,7 @@ function NavScreen({navigation , route}) {
       />
 
       <Tab.Screen
-        initialParams={{user:user}}
+        initialParams={{ user: user }}
         name="Produits"
         component={ProduitsScreen}
         options={{
@@ -83,12 +81,12 @@ function NavScreen({navigation , route}) {
               size={size}
               color={focused ? "blue" : "lightblue"}
             />
-          )
+          ),
         }}
       />
 
       <Tab.Screen
-        initialParams={{user:user}}
+        initialParams={{ user: user }}
         name="Panier"
         component={PanierScreen}
         options={{
@@ -99,7 +97,7 @@ function NavScreen({navigation , route}) {
               color={focused ? "blue" : "lightblue"}
             />
           ),
-          id: id
+          id: id,
         }}
       />
     </Tab.Navigator>
