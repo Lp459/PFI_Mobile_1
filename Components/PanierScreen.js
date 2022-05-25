@@ -3,34 +3,15 @@ import { View, StyleSheet, Text, FlatList, Button  } from "react-native";
 import { Database } from "../database";
 import { useState } from "react";
 import Produit from "./Produit";
+import ButtonCompleterAchat from "./ButtonCompleterAchat";
 
 
 const db = new Database("Shop");
-var prixTotal = 0.0;
 
-const AfficherListe = ({navigation , user}) => {
-  const [produits, setProduits] = useState([]);
 
-    db.execute(`SELECT idProduit,nom,prix,image FROM panier where userId = ${user.id};`)
-    .then((resultSet) => {
-      
-      setProduits(resultSet.rows);  
-      
-    })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });
-
-    prixTotal = 0;
-    console.log(produits);
-    produits.forEach(element=>{
-      prixTotal += element.prix;
-    })
-  
-
- 
+const AfficherListe = ({navigation , user , produits}) => {
   if (produits.length == 0) {
-    return (
+    return (  
       <View>
         <Text>Il semble que votre panier soit vide...</Text>
       </View>
@@ -60,30 +41,45 @@ const AfficherListe = ({navigation , user}) => {
   }
 };
 
-const ProcederAuPaiement = () => {
-  
-  prixTotal = 0;
-  //delete from panier where userid = id
-};
 
 
 
 function PanierScreen({navigation , route}) {
   const {user} = route.params;
+  const [prixTotal , setPrixTotal] = useState(0);
+  const [produits, setProduits] = useState([]);
+
+  db.execute(`SELECT idProduit,nom,prix,image FROM panier where userId = ${user.id};`)
+  .then((resultSet) => {
+    
+    setProduits(resultSet.rows);
+  
+    
+  })
+  .catch((m) => {
+    console.log("Erreur exec Select " + m);
+  });
+
+
+  let prix = 0;
+  produits.map((n)=>{
+    prix += n.prix;
+    
+  })
+  
 
   return (
     <View style={styles.container}>
-      <View style={styles.panierContainer}>
-        <AfficherListe navigation={navigation} user={user} />
+      <View style={styles.panierContainer1}>
+        <AfficherListe navigation={navigation} user={user} produits={produits} />
       </View>
-      <View style={styles.panierContainer}>
+      
+      <View style={styles.panierContainer2}>
         <Text>Résumé</Text>
-        <Text>Sous-total: {prixTotal} $</Text>
+        <Text>Sous-total: {prix} $</Text>
         <View style={styles.bouton}>
-          <Button
-            title="Sécurisé votre paiement"
-            color="blue"
-            onPress={ProcederAuPaiement}
+          <ButtonCompleterAchat
+            userId={user.id}
           />
         </View>
       </View>
@@ -103,9 +99,16 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     margin: 10,
   },
-  panierContainer: {
+  panierContainer1: {
     justifyContent: "center",
     alignSelf: "flex-start"
+  },
+  panierContainer2: {
+    flex:1,
+    borderWidth:2,
+    backgroundColor:"#9BA1AB",
+    justifyContent: "center",
+    alignItems: "center"
   },
   bouton: {
     marginTop: 20,
