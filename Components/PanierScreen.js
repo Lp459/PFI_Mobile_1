@@ -10,34 +10,24 @@ var prixTotal = 0.0;
 
 const AfficherListe = ({navigation , user}) => {
   const [produits, setProduits] = useState([]);
-  const [idProduits , setIdProduits] = useState([]);
-  db.execute(`SELECT idProduit FROM panier where userId = ${user.id} ;`)
+
+    db.execute(`SELECT idProduit,nom,prix,image FROM panier where userId = ${user.id};`)
     .then((resultSet) => {
-      setIdProduits(resultSet.rows);
+      
+      setProduits(resultSet.rows);  
+      
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
-    
-    idProduits.forEach(element => {
-      
-      db.execute(`SELECT id, nom , prix , image FROM produits where id = ${element.idProduit} ;`)
-    .then((resultSet) => {
-      
-      setProduits(resultSet.rows);
-      prixTotal = 0;
-      produits.forEach(element=>{
-        prixTotal += element.prix;
-      })
+
+    prixTotal = 0;
+    console.log(produits);
+    produits.forEach(element=>{
+      prixTotal += element.prix;
     })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });
-    
-    });
-    
   
- 
+
  
   if (produits.length == 0) {
     return (
@@ -54,7 +44,7 @@ const AfficherListe = ({navigation , user}) => {
           renderItem={({item}) => (
         
             <Produit
-              id={item.id}
+              id={item.idProduit}
               nom={item.nom}
               prix={item.prix}
               image={item.image}
@@ -62,7 +52,7 @@ const AfficherListe = ({navigation , user}) => {
             />
             
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.idProduit.toString()}
           
         />
     </View>

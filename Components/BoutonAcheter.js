@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { useState } from 'react';
 import { Database } from '../database';
 const db = new Database("Shop");  
-function BoutonAcheter({user , idObjet}) {
+function BoutonAcheter({user , idObjet, nom , prix , image}) {
     const [isPressed, setIsPressed] = useState(false);
     return (
         <View style={styles.container}>
@@ -15,16 +15,16 @@ function BoutonAcheter({user , idObjet}) {
                 onPress={(m) => {
                     
                     db.execute(
-                      `INSERT INTO panier VALUES (${user.id},${idObjet});`
+                      `INSERT INTO panier(userId , idProduit , nom , prix , image) VALUES (${user.id},${idObjet} ,'${nom}' ,${prix} ,'${image}');`
 
                       ).then(()=>{
-                          
+
                           console.log('insertion fait');
                       })
 
                       
                   .catch(() => {
-                      console.log(idUser , idObjet)
+                      console.log(user.id , idObjet)
                       console.log("Insertion de produit échoué");
                   });
                   }}

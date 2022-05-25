@@ -8,11 +8,11 @@ function init_tab(db) {
       "create table connexions (id , nom, motdepasse, admin , loggedin);"
     );
     db.execute("drop table if exists panier");
-    db.execute("create table panier (userId, idProduit);");
-    db.execute("insert into panier values(2 , 4)");
+    db.execute("create table panier (id INTEGER primary key autoincrement, userId, idProduit , nom , prix , image);");
+    db.execute("insert into panier(userId , idProduit , nom , prix , image) values(2 , 4 ,'GIGABYTE Gaming OC GeForce RTX 3060 12GB',639.00,'https://c1.neweggimages.com/ProductImageCompressAll60/14-932-433-V10.jpg')");
   
-    ajouterProduits(db);
-  
+    ajouterProduits(db); 
+    
     db.execute("insert into connexions values (1 , 'LPR' , '123456' , 1 , 0);");
     db.execute("insert into connexions values (2 , 'JACK' , '123456' , 0 , 0);");
     db.execute("insert into connexions values (3 , 'OK' , '123456' , 0 , 0);");

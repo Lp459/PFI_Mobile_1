@@ -46,8 +46,11 @@ function DetailScreen({ navigation, route }) {
       <Text>{quantite} restant</Text>
       <TextArea value={description} />
       <BoutonAcheter
+        nom={nom}
         user={user}
         idObjet={idObjet}
+        prix={prix}
+        image={image}
         
       />
     </View>
