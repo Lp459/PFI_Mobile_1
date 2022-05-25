@@ -1,8 +1,37 @@
-import { View, Text, Pressable, Image, StyleSheet } from "react-native";
+import { View, Text, Pressable, Image, StyleSheet,Button } from "react-native";
+import {useState} from 'react';
+import Intl from 'intl';
+import 'intl/locale-data/jsonp/fr-CA';
+import 'intl/locale-data/jsonp/en-CA';
 
-const Produit = ({ id, nom, prix, image, navigation }) => {
+const trad = {
+  fr: {
+    prix:"prix:",
+    nom:"nom:"
+  },
+  en: {
+    prix:"price:",
+    nom:"name:"
+  }
+}
+
+
+function traduitProduit(enOrFr , nom , prix){
+  if(enOrFr == 'fr'){
+    return `${trad.fr.nom} ${nom}
+            ${trad.fr.prix} ${prix}`;
+  }
+  if(enOrFr == 'en'){
+    return `${trad.en.nom} ${nom}
+            ${trad.en.prix} ${prix}`;
+  }
+}
+
+const Produit = ({ id, nom, prix, image, navigation ,enFr}) => {
+  
   return (
     <View style={styles.itemContainer}>
+      
       <Pressable
         style={styles.itemBox}
         onPress={() => {
@@ -10,9 +39,11 @@ const Produit = ({ id, nom, prix, image, navigation }) => {
         }}
       >
         <Image style={styles.logo} source={{ uri: image }} />
-
-        <Text>{nom}</Text>
-        <Text>Prix: {prix} $</Text>
+        <Text>
+        {traduitProduit(enFr , nom , prix)}
+        </Text>
+        
+        
       </Pressable>
     </View>
   );

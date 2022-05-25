@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   View,
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   Text,
   Pressable,
   Image,
+  Button
 } from "react-native";
 import { Database } from "../database";
 import Produit from "./Produit";
@@ -16,7 +18,7 @@ const db = new Database("Shop");
 function ListProduits({navigation , route}){
     
     const [produits, setProduits] = useState([]);
-    
+    const [enFR , setEnFr]= useState('fr');
   
     db.execute("SELECT id, nom , prix , image FROM produits;")
       .then((resultSet) => {
@@ -28,6 +30,8 @@ function ListProduits({navigation , route}){
   
     return (
       <View>
+      <Button title='FR-CA' onPress={()=>{setEnFr('fr')}} ></Button>
+      <Button title='EN-CA' onPress={()=>{setEnFr('en')}} ></Button>
         <FlatList
             data={produits}
             renderItem={({item}) => (
@@ -38,6 +42,7 @@ function ListProduits({navigation , route}){
                 prix={item.prix}
                 image={item.image}
                 navigation={navigation}
+                enFr={enFR}
               />
               
             )}
