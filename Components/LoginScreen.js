@@ -25,7 +25,7 @@ function LoginScreen({ navigation }) {
             db.execute(
               `UPDATE connexions set loggedin = 1 where nom='${n.nom}'`
             );
-            n.admin ? navigation.navigate("Admin") : navigation.navigate("Login");
+            n.admin ? navigation.navigate("Admin",{user:n}) : navigation.navigate("Login" , {user:n});
           }}
           user={n.nom}
           flag={n.admin}

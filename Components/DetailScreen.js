@@ -14,17 +14,8 @@ const TextArea = (props) => {
 };
 
 function DetailScreen({ navigation, route }) {
-  const [user, setUser] = useState([]);
-  var id =0;
-  db.execute("SELECT id FROM connexions where loggedin = 1;")
-    .then((resultSet) => {
-      setUser(resultSet.rows);
-      id = user.id;
-      
-    })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });
+  const {user} = route.params;
+
   const { idObjet } = route.params;
   const [donner, setDonner] = useState([]);
 
@@ -55,7 +46,7 @@ function DetailScreen({ navigation, route }) {
       <Text>{quantite} restant</Text>
       <TextArea value={description} />
       <BoutonAcheter
-        idUser={id}
+        user={user}
         idObjet={idObjet}
         
       />

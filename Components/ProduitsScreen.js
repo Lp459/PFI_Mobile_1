@@ -6,18 +6,22 @@ import ListProduits from "./ListProduits";
 
 const Stack = createNativeStackNavigator();
 
-function ProduitsScreen({ navigation }) {
+function ProduitsScreen({ navigation , route }) {
+  const {user} = route.params;
 
   return (
   
       <Stack.Navigator>
         <Stack.Screen
+          initialParams={{user:user}}
           name="ListProduits"
           component={ListProduits}
           options={{ headerShown: false}} 
         />
         
-        <Stack.Screen name="Detail"
+        <Stack.Screen 
+          initialParams={{user:user}}
+          name="Detail"
           component={DetailScreen}
           options={{ headerShown: false}}
            />

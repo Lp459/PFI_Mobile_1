@@ -3,9 +3,8 @@ import { View, StyleSheet , Text } from 'react-native';
 import { Pressable } from 'react-native';
 import { useState } from 'react';
 import { Database } from '../database';
-import currentId from '../Database/IDGenerator';
 const db = new Database("Shop");  
-function BoutonAcheter({idUser , idObjet}) {
+function BoutonAcheter({user , idObjet}) {
     const [isPressed, setIsPressed] = useState(false);
     return (
         <View style={styles.container}>
@@ -16,9 +15,10 @@ function BoutonAcheter({idUser , idObjet}) {
                 onPress={(m) => {
                     
                     db.execute(
-                      `INSERT INTO panier VALUES (${idUser},${idObjet});`
+                      `INSERT INTO panier VALUES (${user.id},${idObjet});`
 
                       ).then(()=>{
+                          
                           console.log('insertion fait');
                       })
 

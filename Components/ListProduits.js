@@ -13,7 +13,8 @@ import Produit from "./Produit";
 const db = new Database("Shop");
 
 
-function ListProduits({navigation}){
+function ListProduits({navigation , route}){
+    
     const [produits, setProduits] = useState([]);
     
   

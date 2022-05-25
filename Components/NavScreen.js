@@ -15,7 +15,8 @@ import AboutScreen from "./AboutScreen";
 const Tab = createBottomTabNavigator();
 const db = new Database("Shop");
 
-function NavScreen(props) {
+function NavScreen({navigation , route}) {
+  const {user}=route.params;
   const [id, setId] = useState([]);
 
   db.execute(
@@ -72,6 +73,7 @@ function NavScreen(props) {
       />
 
       <Tab.Screen
+        initialParams={{user:user}}
         name="Produits"
         component={ProduitsScreen}
         options={{
@@ -86,6 +88,7 @@ function NavScreen(props) {
       />
 
       <Tab.Screen
+        initialParams={{user:user}}
         name="Panier"
         component={PanierScreen}
         options={{

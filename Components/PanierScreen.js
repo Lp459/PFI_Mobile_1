@@ -4,23 +4,41 @@ import { Database } from "../database";
 import { useState } from "react";
 import Produit from "./Produit";
 
+
 const db = new Database("Shop");
 var prixTotal = 0.0;
 
-const AfficherListe = ({navigation , userId}) => {
+const AfficherListe = ({navigation , user}) => {
   const [produits, setProduits] = useState([]);
-  
-  
-  db.execute(`SELECT id, nom , prix , image FROM produits where id = ${userId} ;`)
+  const [idProduits , setIdProduits] = useState([]);
+  db.execute(`SELECT idProduit FROM panier where userId = ${user.id} ;`)
     .then((resultSet) => {
-      setProduits(resultSet.rows);
+      setIdProduits(resultSet.rows);
     })
     .catch((m) => {
       console.log("Erreur exec Select " + m);
     });
-    produits.forEach(element => {
-      CalculerTotal(element.id);
+    
+    idProduits.forEach(element => {
+      
+      db.execute(`SELECT id, nom , prix , image FROM produits where id = ${element.idProduit} ;`)
+    .then((resultSet) => {
+      
+      setProduits(resultSet.rows);
+      prixTotal = 0;
+      produits.forEach(element=>{
+        prixTotal += element.prix;
+      })
+    })
+    .catch((m) => {
+      console.log("Erreur exec Select " + m);
     });
+    
+    });
+    
+  
+ 
+ 
   if (produits.length == 0) {
     return (
       <View>
@@ -53,52 +71,20 @@ const AfficherListe = ({navigation , userId}) => {
 };
 
 const ProcederAuPaiement = () => {
-  items = [];
+  
   prixTotal = 0;
   //delete from panier where userid = id
 };
 
-const CalculerTotal = (idProduit) => {
-  const [prix , setPrix] = useState(0);
-  db.execute(`select prix from produits where id = ${idProduit};`)
-    .then((result) => {
-      setPrix(result.rows);
-      prix.forEach(element => {
-        prixTotal += element.prix;  
-      });
-    })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });
-};
 
-function PanierScreen({navigation}) {
-  const [user, setUser] = useState([]);
-  const [id , setId] = useState(0);
-  db.execute("SELECT id FROM connexions where loggedin = 1;")
-    .then((resultSet) => {
-      setUser(resultSet.rows);
-      user.forEach(element => {
-        
-        setId(element.id);
-        
 
-      });
-    })
-    .catch((m) => {
-      console.log("Erreur exec Select " + m);
-    });
-    
-  
- 
-  
-  {
-    CalculerTotal();
-  }
+function PanierScreen({navigation , route}) {
+  const {user} = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.panierContainer}>
-        <AfficherListe userId={id} navigation={navigation} />
+        <AfficherListe navigation={navigation} user={user} />
       </View>
       <View style={styles.panierContainer}>
         <Text>Résumé</Text>
