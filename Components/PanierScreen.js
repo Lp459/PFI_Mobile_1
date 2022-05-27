@@ -26,6 +26,7 @@ const AfficherListe = ({ navigation, user, produits }) => {
               prix={item.prix}
               image={item.image}
               navigation={navigation}
+              enFr={"fr"}
             />
           )}
           keyExtractor={(item) => item.idProduit.toString()}

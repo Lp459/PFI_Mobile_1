@@ -24,6 +24,7 @@ function traduitProduit(enOrFr, nom, prix) {
     return `${trad.en.nom} ${nom}
             ${trad.en.prix} ${prix}`;
   }
+  
 }
 
 const Produit = ({ id, nom, prix, image, navigation, enFr }) => {
