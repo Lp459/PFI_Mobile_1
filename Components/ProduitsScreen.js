@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DetailScreen from "./DetailScreen";
 import ListProduits from "./ListProduits";
 
 const Stack = createNativeStackNavigator();
 
-function ProduitsScreen({ navigation, route }) {
+function ProduitsScreen({ route }) {
   const { user } = route.params;
 
   return (

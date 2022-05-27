@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -6,40 +6,87 @@ import {
   TextInput,
   Button,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { Database } from "../database";
-import insertProduit from "../Database/insertProduit";
+import InsertProduit from "../Database/InsertProduit";
 
 const db = new Database("Shop");
 
-const valueId = null;
+var id = 0;
 const valueNom = "";
-const valuePrix = 0.0;
+const valuePrix = "0.0";
 const valueImage = "https://";
-const valueQuantite = 0;
+const valueQuantite = "0";
 const valueDescription = "";
 
+const wait = (tempsLibre) => {
+  return new Promise((reussi) => setTimeout(reussi, tempsLibre));
+};
+
 function AdminScreen() {
-  const [id, onChangeId] = useState(valueId);
+  //useState pour les champs d'entrées
   const [nom, onChangeNom] = useState(valueNom);
   const [prix, onChangePrix] = useState(valuePrix);
   const [image, onChangeImage] = useState(valueImage);
   const [quantite, onChangeQuantite] = useState(valueQuantite);
   const [description, onChangeDescription] = useState(valueDescription);
+
+  const [refresh, setRefresh] = useState(false);
+
+  //Remet les champs d'entrées à leur valeur de base
+  const InitUseState = () => {
+    onChangeNom(valueNom);
+    onChangePrix(valuePrix);
+    onChangeImage(valueImage);
+    onChangeQuantite(valueQuantite);
+    onChangeDescription(valueDescription);
+  };
+
+  //Fonction qui rafraichie les données lors qu'on glisse
+  //vers le bas
+  const onRefresh = useCallback(() => {
+    setRefresh(true);
+    wait(2000).then(() => {
+      InitUseState();
+      setRefresh(false);
+    });
+  }, []);
+
+  const TrouverDernierId = () => {
+    db.execute("SELECT MAX(id) as id from produits;")
+      .then((result) => {
+        let obj = result.rows[0];
+        id = obj.id + 1;
+      })
+      .catch(() => {
+        console.log("Erreur Trouver Id");
+      });
+  };
+
+  const VerifierChamps = () => {
+    console.log(nom.trim().length > 0);
+    console.log(parseInt(prix) > 0);
+    console.log(image.includes("https://"));
+    console.log(parseInt(quantite) > 0);
+    return (
+      nom.trim().length > 0 &&
+      parseInt(prix) > 0 &&
+      image.includes("https://") &&
+      parseInt(quantite) > 0
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+        }
+      >
         <Text style={styles.title}>Administrateur</Text>
         <View style={styles.fieldset}>
           <Text style={styles.legend}>Formulaire d'ajout de produit</Text>
-          <Text>Identifiant</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeId}
-            value={id}
-            placeholder="Entrez l'identifiant ici.."
-            keyboardType="number-pad"
-          />
           <Text>Nom</Text>
           <TextInput
             style={styles.input}
@@ -77,29 +124,20 @@ function AdminScreen() {
           />
         </View>
         <View style={styles.submitButton}>
-            <Button
+          <Button
             title="Soumettre"
             color="#87CEEB"
             onPress={() => {
-                    onChangeId(valueId);
-                    onChangeNom(valueNom);
-                    onChangePrix(valuePrix);
-                    onChangeImage(valueImage);
-                    onChangeQuantite(valueQuantite);
-                    onChangeDescription(valueDescription);
-                    /*Faire fonction DB pour verifier entrées*/ insertProduit(
-                    db,
-                    id,
-                    nom,
-                    prix,
-                    image,
-                    quantite,
-                    description
-                    )
-                    alert("Votre produit a été ajouté avec succès!");
-                }
-            }
-            />
+              if (VerifierChamps()) {
+                InitUseState();
+                TrouverDernierId();
+                InsertProduit(db, id, nom, prix, image, quantite, description);
+                alert("Votre produit a été ajouté avec succès!");
+              } else {
+                alert("Un ou des champs sont invalides! Réessayez.");
+              }
+            }}
+          />
         </View>
       </ScrollView>
     </View>
@@ -121,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     paddingLeft: 20,
-    marginLeft: 15
+    marginLeft: 15,
   },
   input: {
     height: 40,
@@ -133,13 +171,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
-    marginBottom: 30
+    marginBottom: 30,
   },
   legend: {
-      fontFamily: "serif",
-      fontSize: 15,
-      margin: 8
-  }
+    fontFamily: "serif",
+    fontSize: 15,
+    margin: 8,
+  },
 });
 
 export default AdminScreen;

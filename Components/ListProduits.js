@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-
 import {
   View,
-  StyleSheet,
   FlatList,
-  Text,
-  Pressable,
-  Image,
-  Button
+  Button,
+  StyleSheet
 } from "react-native";
 import { Database } from "../database";
+import NettoyerComposant from "./NettoyerComposant";
 import Produit from "./Produit";
 
 const db = new Database("Shop");
 
 
-function ListProduits({navigation , route}){
+function ListProduits({ navigation }){
     
     const [produits, setProduits] = useState([]);
     const [langue , setLangue]= useState('fr');
+
+    NettoyerComposant(setProduits, []);
+    NettoyerComposant(setLangue, '');
   
     db.execute("SELECT id, nom , prix , image FROM produits;")
       .then((resultSet) => {
@@ -29,9 +29,9 @@ function ListProduits({navigation , route}){
       });
   
     return (
-      <View>
-      <Button title='FR-CA' onPress={()=>{setLangue('fr')}} />
-      <Button title='EN-CA' onPress={()=>{setLangue('en')}} />
+      <View style={styles.container}> 
+        <Button title='FR-CA' onPress={()=>{setLangue('fr')}} />
+        <Button title='EN-CA' onPress={()=>{setLangue('en')}} />
         <FlatList
             data={produits}
             renderItem={({item}) => (
@@ -47,11 +47,21 @@ function ListProduits({navigation , route}){
               
             )}
             keyExtractor={(item) => item.id.toString()}
-            
+            style={styles.flatList}
           />
       </View>
     )
   
 }
 
+const styles = StyleSheet.create({
+  flatList: {
+    margin: 8,
+    marginBottom: 100
+  },
+  container: {
+    width: 300,
+    alignSelf: "center"
+  }
+});
 export default ListProduits;

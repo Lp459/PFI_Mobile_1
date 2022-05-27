@@ -1,8 +1,10 @@
-import { View, Text, Pressable, Image, StyleSheet, Button } from "react-native";
-import { useState } from "react";
+import { View, Text, Pressable, Image, StyleSheet } from "react-native";
 import Intl from "intl";
 import "intl/locale-data/jsonp/fr-CA";
 import "intl/locale-data/jsonp/en-CA";
+
+const argentEN = new Intl.NumberFormat('en-CA', {style:"currency", currency: "CAD"});
+const argentFR = new Intl.NumberFormat('fr-CA', {style:"currency", currency: "CAD"});
 
 const trad = {
   fr: {
@@ -15,14 +17,14 @@ const trad = {
   },
 };
 
-function traduitProduit(enOrFr, nom, prix) {
+function TraduitProduit(enOrFr, nom, prix) {
   if (enOrFr == "fr") {
     return `${trad.fr.nom} ${nom}
-            ${trad.fr.prix} ${prix}`;
+            ${trad.fr.prix} ${argentFR.format(prix)}`;
   }
   if (enOrFr == "en") {
     return `${trad.en.nom} ${nom}
-            ${trad.en.prix} ${prix}`;
+            ${trad.en.prix} ${argentEN.format(prix)}`;
   }
   
 }
@@ -37,7 +39,7 @@ const Produit = ({ id, nom, prix, image, navigation, enFr }) => {
         }}
       >
         <Image style={styles.logo} source={{ uri: image }} />
-        <Text>{traduitProduit(enFr, nom, prix)}</Text>
+        <Text>{TraduitProduit(enFr, nom, prix)}</Text>
       </Pressable>
     </View>
   );

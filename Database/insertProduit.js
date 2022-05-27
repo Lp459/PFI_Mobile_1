@@ -1,4 +1,4 @@
-function insertProduit(db, id, nom, prix, image, quantite, description) {
+function InsertProduit(db, id, nom, prix, image, quantite, description) {
   db.execute(
     `INSERT INTO produits VALUES (${id}, '${nom}', ${prix}, '${image}', ${quantite}, '${description}');`
   ).catch(() => {
@@ -6,4 +6,4 @@ function insertProduit(db, id, nom, prix, image, quantite, description) {
   });
 }
 
-export default insertProduit;
+export default InsertProduit;

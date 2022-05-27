@@ -15,19 +15,19 @@ function FindUsScreen() {
     latitudeDelta: 1,
     longitudeDelta: 1,
   };
-  const compagnieNewEgg2 = {
+  const newEggOttawa = {
     latitude: 45.4425442,
     longitude: -75.7784885,
     latitudeDelta: 1,
     longitudeDelta: 1,
   };
-  const compagnieNewEgg3 = {
+  const newEggLaval = {
     latitude: 45.5967908,
     longitude: -73.804214,
     latitudeDelta: 1,
     longitudeDelta: 1,
   };
-  const compagnieNewEgg4 = {
+  const newEggAmos = {
     latitude: 48.56513213993173,
     longitude: -78.11858069473442,
     latitudeDelta: 1,
@@ -58,39 +58,39 @@ function FindUsScreen() {
         initialRegion={region}
       >
         <Marker
-          title="NewEgg HQ"
+          title="NewEgg Entrepôt mère"
           pinColor="purple"
           description="L'entrepôt de l'entreprise NewEgg est situé ici"
           coordinate={compagnieNewEgg}
           onPress={() => setRegion(compagnieNewEgg)}
         />
         <Marker
-          title="Home"
+          title="Lionel-Groulx"
           pinColor="blue"
-          description="Lionel-Groulx"
+          description="Le cégep Lionel-Groulx est situé ici"
           coordinate={lionel}
           onPress={() => setRegion(lionel)}
         />
         <Marker
-          title="Newegg Entrepot d'ottawa"
+          title="Newegg Entrepot d'Ottawa"
           pinColor="purple"
-          description="un entrepot de newegg"
-          coordinate={compagnieNewEgg2}
-          onPress={() => setRegion(compagnieNewEgg2)}
+          description="L'entrepôt NewEgg dans la capitale du Canada"
+          coordinate={newEggOttawa}
+          onPress={() => setRegion(newEggOttawa)}
         />
         <Marker
-          title="Newegg Entrepot de laval"
+          title="Newegg Entrepot de Laval"
           pinColor="purple"
-          description="Un entrepôt de l'entreprise NewEgg est situé ici"
-          coordinate={compagnieNewEgg3}
-          onPress={() => setRegion(compagnieNewEgg3)}
+          description="L'entrepôt NewEgg à Laval est situé ici"
+          coordinate={newEggLaval}
+          onPress={() => setRegion(newEggLaval)}
         />
         <Marker
-          title="Newegg Entrepot d'amos"
+          title="Newegg Entrepot d'Amos"
           pinColor="purple"
-          description="Un entrepôt de l'entreprise NewEgg est situé ici"
-          coordinate={compagnieNewEgg4}
-          onPress={() => setRegion(compagnieNewEgg4)}
+          description="L'entrepôt NewEgg d'Amos est situé ici"
+          coordinate={newEggAmos}
+          onPress={() => setRegion(newEggAmos)}
         />
         <Polyline coordinates={points} strokeWidth={8} strokeColor="orange" />
       </MapView>

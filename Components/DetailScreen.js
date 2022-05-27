@@ -1,8 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, Pressable } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import { Database } from "../database";
 import BoutonAcheter from "./BoutonAcheter";
 import { useState } from "react";
+import NettoyerComposant from "./NettoyerComposant";
+
 const db = new Database("Shop");
 
 const TextArea = (props) => {
@@ -13,11 +15,13 @@ const TextArea = (props) => {
   );
 };
 
-function DetailScreen({ navigation, route }) {
+function DetailScreen({ route }) {
   const { user } = route.params;
 
   const { idObjet } = route.params;
   const [donner, setDonner] = useState([]);
+
+  NettoyerComposant(setDonner, []);
 
   var [nom, prix, image, quantite, description] = "";
   db.execute(
