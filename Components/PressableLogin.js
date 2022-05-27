@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import { useState } from "react";
 
-function PressableLogin({ onPress, user, flag, loggedin }) {
+function PressableLogin({ onPress, user }) {
   const [isPressed, setIsPressed] = useState(false);
   return (
     <Pressable
@@ -10,12 +10,9 @@ function PressableLogin({ onPress, user, flag, loggedin }) {
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
       onPress={onPress}
-      key={0}
     >
       <Text style={isPressed ? styles.texteAppuye : styles.texteNormal}>
         {user}
-        {flag}
-        {loggedin}
       </Text>
     </Pressable>
   );
@@ -27,35 +24,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 35,
-    color: "white",
-    backgroundColor: "#38f",
-  },
-  ligneCroisiere: {
-    fontSize: 30,
-    color: "white",
-    padding: 7,
-    margin: 7,
-    backgroundColor: "blue",
-  },
-  croisiere: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "blue",
-    padding: 4,
-    margin: 4,
-  },
   pressable: {
     color: "blue",
     backgroundColor: "#2be",
     padding: 6,
     margin: 4,
     borderRadius: 10,
-  },
-  pressable_text: {
-    fontSize: 15,
-    alignItems: "center",
   },
   appuye: {
     backgroundColor: "#26e",
@@ -66,10 +40,12 @@ const styles = StyleSheet.create({
   texteAppuye: {
     color: "lightblue",
     fontWeight: "bold",
+    fontSize: 19
   },
   texteNormal: {
-    color: "blue",
+    color: "salmon",
     fontWeight: "bold",
+    fontSize: 19
   },
 });
 

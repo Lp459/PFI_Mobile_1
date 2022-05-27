@@ -1,6 +1,5 @@
-function updateLoggedIn(db) {
-  console.log("update login");
+function UpdateLoggedIn(db) {
   db.execute(`UPDATE connexions set loggedin = 0`);
 }
 
-export default updateLoggedIn;
+export default UpdateLoggedIn;

@@ -3,8 +3,9 @@ import { View, StyleSheet, Text } from "react-native";
 import { Pressable } from "react-native";
 import { useState } from "react";
 import { Database } from "../database";
-import BoutonAcheter from "./BoutonAcheter";
+
 const db = new Database("Shop");
+
 function ButtonCompleterAchat({ userId }) {
   const [isPressed, setIsPressed] = useState(false);
   return (
@@ -13,14 +14,14 @@ function ButtonCompleterAchat({ userId }) {
         style={isPressed ? styles.appuye : styles.pressable}
         onPressIn={() => setIsPressed(true)}
         onPressOut={() => setIsPressed(false)}
-        onPress={(m) => {
-          db.execute(`DELETE from panier where userId =${userId};`)
-            .then((resultSet) => {
-              alert("achat compléter");
+        onPress={() => {
+          db.execute(`DELETE from panier where userId = ${userId};`)
+            .then(() => {
+              alert("Achat compléter");
             })
 
             .catch(() => {
-              console.log("error");
+              console.log("Erreur");
             });
         }}
       >
@@ -33,7 +34,12 @@ function ButtonCompleterAchat({ userId }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "#9BA1AB",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10
+  },
   appuye: {
     backgroundColor: "#26e",
     padding: 6,
@@ -46,6 +52,17 @@ const styles = StyleSheet.create({
     padding: 6,
     margin: 4,
     borderRadius: 10,
+  },
+  texteAppuye: {
+    color: "lightblue",
+    fontWeight: "bold",
+    fontSize: 19,
+    margin: 0
+  },
+  texteNormal: {
+    color: "salmon",
+    fontWeight: "bold",
+    fontSize: 19,
   },
 });
 

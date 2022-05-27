@@ -1,4 +1,4 @@
-function ajouterProduits(db) {
+function AjouterProduits(db) {
   db.execute(
     "INSERT INTO produits VALUES (1, 'Asus GeForce GTX 1060 6GB', 686.00, 'https://c1.neweggimages.com/ProductImage/ADFR_1_20170922339927387.jpg', 10, 'Carte graphique Asus Geforce GTX 1060 6 Go avec double fan.');"
   );
@@ -25,4 +25,4 @@ function ajouterProduits(db) {
   );
 }
 
-export default ajouterProduits;
+export default AjouterProduits;

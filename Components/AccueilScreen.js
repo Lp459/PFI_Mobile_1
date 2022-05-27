@@ -1,15 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, Button } from "react-native";
-import AboutScreen from "./AboutScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { View, StyleSheet, Text, Image } from "react-native";
 import OpenURLButton from "./OpenUrlButton";
-
-const Stack = createNativeStackNavigator();
 
 function AccueilScreen() {
   return (
-    <View style={styles.aboutContainer}>
+    <View style={styles.container}>
       <Text style={styles.title}>Bienvenue dans NewEgg!</Text>
       <Image style={styles.logo} source={require("../assets/newEgg.jpg")} />
       <Text style={styles.text_accueil}>
@@ -33,13 +28,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  pressable: {
-    color: "blue",
-    backgroundColor: "#2be",
-    padding: 6,
-    margin: 4,
-    borderRadius: 10,
-  },
   logo: {
     width: 110,
     height: 90,
@@ -49,10 +37,6 @@ const styles = StyleSheet.create({
     color: "#FF5733",
     fontSize: 24,
     margin: 3,
-  },
-  pressable_text: {
-    fontSize: 15,
-    alignItems: "center",
   },
   text_accueil: {
     justifyContent: "center",
@@ -70,12 +54,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignContent: "center",
     alignItems: "center",
-  },
-  aboutContainer: {
-    fontSize: 10,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
+  }
 });
 
 export default AccueilScreen;

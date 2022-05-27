@@ -1,6 +1,6 @@
-import ajouterProduits from "../Database/ajouterProduits";
+import AjouterProduits from "./AjouterProduits";
 
-function init_tab(db) {
+function Init_Tab(db) {
   db.execute("drop table if exists produits;");
   db.execute(
     "create table produits (id , nom, prix, image, quantite, description);"
@@ -14,7 +14,7 @@ function init_tab(db) {
     "create table panier (id INTEGER primary key autoincrement, userId, idProduit , nom , prix , image);"
   );
 
-  ajouterProduits(db);
+  AjouterProduits(db);
 
   db.execute("insert into connexions values (1 , 'LPR' , 'admin_123456' , 1 , 0);");
   db.execute("insert into connexions values (2 , 'Jack' , '123456' , 0 , 0);");
@@ -23,4 +23,4 @@ function init_tab(db) {
   db.execute("insert into connexions values (5 , 'Lina' , 'admin_123456' , 1 , 0);");
 }
 
-export default init_tab;
+export default Init_Tab;
