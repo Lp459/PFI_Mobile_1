@@ -9,10 +9,10 @@ function AjouterProduits(db) {
     "INSERT INTO produits VALUES (3, 'MSI Gaming RTX 3080 10GB', 1299.00, 'https://c1.neweggimages.com/ProductImage/14-137-677-V07.jpg', 12, 'Carte graphique MSI Gaming GeForce RTX 3080 GDDR6 PCI Express 4.0 pour des cartes mères ATX. Vitesse maximal à 1830 MHz.');"
   );
   db.execute(
-    "INSERT INTO produits VALUES (4, 'GIGABYTE Gaming OC GeForce RTX 3060 12GB', 639.00, 'https://c1.neweggimages.com/ProductImageCompressAll60/14-932-433-V10.jpg', 27, 'Carte vidéo GIGABYTE Gaming OC RTX 3060 PCI 4.0 Express. Vitesse maximal à 1837 MHz. Carte performante et silencieuse, parfait pour le gaming.');"
+    "INSERT INTO produits VALUES (4, 'GIGABYTE Gaming OC GeForce RTX 3060 12GB', 639.00, 'https://c1.neweggimages.com/ProductImageCompressAll1280/14-932-433-V11.jpg', 27, 'Carte vidéo GIGABYTE Gaming OC RTX 3060 PCI 4.0 Express. Vitesse maximal à 1837 MHz. Carte performante et silencieuse, parfait pour le gaming.');"
   );
   db.execute(
-    "INSERT INTO produits VALUES (5, 'ASUS ROG Strix Z590-E Gaming', 329.00, 'https://c1.neweggimages.com/ProductImageCompressAll60/13-119-367-V04.jpg', 37, 'Carte mère Asus ROG Strix Z590-E Gaming LGA 1200 11e génération. Compatible avec les processeurs Intel Core de la 11e génération.');"
+    "INSERT INTO produits VALUES (5, 'ASUS ROG Strix Z590-E Gaming', 329.00, 'https://c1.neweggimages.com/ProductImageCompressAll1280/13-119-367-V01.jpg', 37, 'Carte mère Asus ROG Strix Z590-E Gaming LGA 1200 11e génération. Compatible avec les processeurs Intel Core de la 11e génération.');"
   );
   db.execute(
     "INSERT INTO produits VALUES (6, 'MSI MPG Z490 Gaming Edge', 189.99, 'https://c1.neweggimages.com/ProductImage/13-144-302-V01.jpg', 85, 'Carte mère ATX MSI Z490 Gaming Edge LGA 1200 SATA 6Gb/s. Compatible avec la 10e et 11e génération Intel Core.');"
